@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class ImageData extends StatelessWidget {
+  final String path;
+  final double width;
+  const ImageData({super.key, required this.path, this.width = 60});
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      path,
+      width: width / Get.mediaQuery.devicePixelRatio,
+    );
+  }
+}
+
+class ImagePath {
+  static String get homeOff => 'assets/images/bot_nav_home_off.png';
+  static String get homeOn => 'assets/images/bot_nav_home_on.png';
+  static String get teamOff => 'assets/images/bot_nav_team_off.png';
+  static String get teamOn => 'assets/images/bot_nav_team_on.png';
+  static String get scheOff => 'assets/images/bot_nav_sche_off.png';
+  static String get scheOn => 'assets/images/bot_nav_sche_on.png';
+  static String get mypageOff => 'assets/images/bot_nav_mypage_off.png';
+  static String get mypageOn => 'assets/images/bot_nav_mypage_on.png';
+}
