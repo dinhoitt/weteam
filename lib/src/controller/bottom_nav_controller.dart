@@ -28,4 +28,15 @@ class BottomNavController extends GetxController {
     }
     _pageIndex(value);
   }
+
+  Future<bool> popAction() async {
+    //뒤로가기 두 번 해야 종료
+    if (_history.length == 1) {
+      return true;
+    } else {
+      _history.removeLast();
+      _pageIndex(_history.last);
+      return false;
+    }
+  }
 }

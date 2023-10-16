@@ -11,9 +11,12 @@ class App extends GetView<BottomNavController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Scaffold(
-        body: _body(),
-        bottomNavigationBar: _bottom(),
+      () => WillPopScope(
+        onWillPop: controller.popAction,
+        child: Scaffold(
+          body: _body(),
+          bottomNavigationBar: _bottom(),
+        ),
       ),
     );
   }

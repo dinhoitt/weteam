@@ -24,4 +24,7 @@ class ImagePath {
   static String get scheOn => 'assets/images/bot_nav_sche_on.png';
   static String get mypageOff => 'assets/images/bot_nav_mypage_off.png';
   static String get mypageOn => 'assets/images/bot_nav_mypage_on.png';
+  static String get bellIcon => 'assets/images/icon_bell.png';
+  static String get icon2Icon => 'assets/images/icon_2.png';
+  static String get emptygroup => 'assets/images/empty_group.png';
 }
