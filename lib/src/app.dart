@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/controller/bottom_nav_controller.dart';
 import 'package:weteam/src/view/home.dart';
+import 'package:weteam/src/view/teamplay.dart';
 
 import 'widget/image_date.dart';
 
@@ -38,7 +39,7 @@ class App extends GetView<BottomNavController> {
             label: 'home'),
         BottomNavigationBarItem(
             icon: ImageData(path: ImagePath.teamOff),
-            activeIcon: ImageData(path: ImagePath.teamOff),
+            activeIcon: ImageData(path: ImagePath.teamOn),
             label: 'teamplay'),
         BottomNavigationBarItem(
             icon: ImageData(path: ImagePath.scheOff),
@@ -57,9 +58,10 @@ class App extends GetView<BottomNavController> {
       index: controller.index,
       children: [
         const Home(),
-        Container(
-          color: Colors.yellow,
-        ),
+        const TeamPlay(),
+        // Container(
+        //   color: Colors.green,
+        // ),
         Container(
           color: Colors.green,
         ),
