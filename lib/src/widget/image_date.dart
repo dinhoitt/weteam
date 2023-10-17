@@ -26,5 +26,10 @@ class ImagePath {
   static String get mypageOn => 'assets/images/bot_nav_mypage_on.png';
   static String get bellIcon => 'assets/images/icon_bell.png';
   static String get icon2Icon => 'assets/images/icon_2.png';
+  static String get dot => 'assets/images/dot.png';
   static String get emptygroup => 'assets/images/empty_group.png';
+  static String get emptysche => 'assets/images/empty_sche.png';
+  static String get ladder => 'assets/images/ladder.png';
+  static String get tipicon => 'assets/images/tip_icon.png';
+  static String get title1 => 'assets/images/title_1.png';
 }

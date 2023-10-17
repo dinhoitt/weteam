@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weteam/src/widget/buildbox1.dart';
+import 'package:weteam/src/widget/buildbox2.dart';
+import 'package:weteam/src/widget/buildbox3.dart';
 import 'package:weteam/src/widget/image_date.dart';
 
 class Home extends StatelessWidget {
@@ -28,12 +31,11 @@ class Home extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  '🔴 위팀',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
+                child: Image.asset(
+                  ImagePath.title1,
+                  width: 58.0,
+                  height: 24.0,
+                  fit: BoxFit.fill,
                 ),
               ),
               Padding(
@@ -65,83 +67,19 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              _buildBox1(),
+              BuildBox1(),
               SizedBox(
-                height: 20,
+                height: 5.0,
               ),
-              _buildBox1(),
+              BuildBox2(),
               SizedBox(
-                height: 20,
+                height: 5.0,
               ),
-              _buildBox1(),
-              SizedBox(
-                height: 20,
-              ),
-              _buildBox1(),
-              SizedBox(
-                height: 20,
-              ),
-              _buildBox1(),
+              BuildBox3(),
             ],
           ),
         );
       },
     );
-  }
-
-  Widget _buildBox1() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Container(
-        width: double.infinity,
-        height: 200.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
-          color: Colors.white, // Card의 기본 배경색과 동일하게 설정
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4.0,
-              spreadRadius: 2.0,
-              offset: Offset(0, 0), // 상하좌우에 그림자 적용
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '진행 중인 팀플 실시간 현황',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.grey[600],
-                ),
-              ),
-              Text(
-                '팀플 바로가기',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15.0),
-                child: Center(
-                  child: Image.asset(ImagePath.emptygroup),
-                ),
-              ),
-              Center(
-                child: Text('앗, 현재진행중인 팀플이 없어 보여요! \n 지금 팀플 추가하러 가기 >',
-                    style: TextStyle(), textAlign: TextAlign.center),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBox2() {
-    return const Column();
   }
 }
