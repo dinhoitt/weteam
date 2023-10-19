@@ -5,7 +5,7 @@ import 'package:weteam/src/view/home.dart';
 import 'package:weteam/src/view/schedule.dart';
 import 'package:weteam/src/view/teamplay.dart';
 
-import 'widget/image_date.dart';
+import 'data/image_date.dart';
 
 class App extends GetView<BottomNavController> {
   const App({super.key});
