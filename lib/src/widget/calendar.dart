@@ -1,5 +1,3 @@
-// calendar.dart
-
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -25,7 +23,41 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      locale: 'ko_KR',
+      calendarBuilders: CalendarBuilders(
+        dowBuilder: (context, day) {
+          switch (day.weekday) {
+            case 6:
+              return Center(
+                child: Text(
+                  '토',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              );
+          }
+        },
+        defaultBuilder: (context, day, _) {
+          if (day.weekday == DateTime.saturday) {
+            return Center(
+              child: Text(
+                day.day.toString(),
+                style: TextStyle(color: Colors.blue),
+              ),
+            );
+          } else if (day.weekday == DateTime.sunday) {
+            return Center(
+              child: Text(
+                day.day.toString(),
+                style: TextStyle(color: Colors.red),
+              ),
+            );
+          } else {
+            return Center(child: Text(day.day.toString()));
+          }
+        },
+      ),
+      locale: 'ko_KR', // 한국어
+      daysOfWeekHeight: 50.0, // 요일 높이 조정
+      rowHeight: 100.0, // 상하 간격
       firstDay: DateTime.utc(2000, 1, 1),
       lastDay: DateTime.utc(2100, 12, 31),
       focusedDay: widget.focusedDay,
@@ -33,15 +65,25 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
         return isSameDay(widget.selectedDay, day);
       },
       calendarFormat: widget.format,
-      startingDayOfWeek: StartingDayOfWeek.monday,
+      startingDayOfWeek: StartingDayOfWeek.sunday, // 일요일부터 시작
       onDaySelected: ((selectedDay, newFocusedDay) {
         widget.onDaySelected(selectedDay, newFocusedDay);
       }),
       headerVisible: false,
       daysOfWeekStyle: DaysOfWeekStyle(
         weekendStyle: TextStyle(color: Colors.red),
-        weekdayStyle: TextStyle(color: Colors.black),
       ),
+      calendarStyle: CalendarStyle(
+        defaultTextStyle: TextStyle(color: Colors.black),
+        holidayTextStyle: TextStyle(color: Colors.red), // 공휴일 텍스트 스타일
+      ),
+      holidayPredicate: (day) {
+        // 공휴일 추가
+        if (day == DateTime(day.year, 10, 3)) {
+          return true;
+        }
+        return false;
+      },
     );
   }
 }

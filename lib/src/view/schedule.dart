@@ -75,9 +75,7 @@ class _ScheduleState extends State<Schedule> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              selectedDate == null
-                                  ? 'Choose a date'
-                                  : '${selectedDate!.year}.${selectedDate!.month}',
+                              '${selectedDate!.year}.${selectedDate!.month}',
                               style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
@@ -105,7 +103,6 @@ class _ScheduleState extends State<Schedule> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: Colors.white,
