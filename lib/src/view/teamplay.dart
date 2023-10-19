@@ -36,9 +36,7 @@ class _TeamPlayState extends State<TeamPlay> {
           centerTitle: true,
         ),
         body: _body(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-        ),
+        floatingActionButton: null,
       ),
     );
   }
@@ -83,9 +81,9 @@ class _TeamPlayState extends State<TeamPlay> {
                         itemCount: itemCount + 1,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 20.0,
-                          crossAxisSpacing: 30.0,
-                          childAspectRatio: 1.6,
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 20.0,
+                          childAspectRatio: 1.1,
                         ),
                         itemBuilder: (context, index) {
                           if (index == itemCount) {
@@ -97,28 +95,58 @@ class _TeamPlayState extends State<TeamPlay> {
                                   });
                                 }
                               },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  image: DecorationImage(
-                                    image: AssetImage(ImagePath.addbox),
-                                    fit: BoxFit.fill,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      image: DecorationImage(
+                                        image: AssetImage(ImagePath.addbox),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Text('새로운 팀플 추가하기')
+                                ],
                               ),
                             );
                           }
 
                           return GestureDetector(
                             onTap: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                image: DecorationImage(
-                                  image: AssetImage(ImagePath.boxitem),
-                                  fit: BoxFit.fill,
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        image: DecorationImage(
+                                          image: AssetImage(ImagePath.boxitem),
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: Text(
+                                        '1',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text('팀플명'),
+                                )
+                              ],
                             ),
                           );
                         },
