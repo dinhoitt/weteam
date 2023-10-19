@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weteam/src/widget/buildbox1.dart';
 import 'package:weteam/src/widget/buildbox2.dart';
 import 'package:weteam/src/widget/buildbox3.dart';
-import 'package:weteam/src/widget/image_date.dart';
+import 'package:weteam/src/data/image_date.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

@@ -34,4 +34,5 @@ class ImagePath {
   static String get title1 => 'assets/images/title_1.png';
   static String get boxitem => 'assets/images/folder.png';
   static String get addbox => 'assets/images/add_folder.png';
+  static String get addschedule => 'assets/images/add_schedule.png';
 }

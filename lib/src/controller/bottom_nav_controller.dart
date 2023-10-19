@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:get/get.dart';
 
-enum Page { HOME, TEAMPLAY, SCHEDUAL, MYPAGE }
+enum Page { HOME, TEAMPLAY, SCHEDULE, MYPAGE }
 
 class BottomNavController extends GetxController {
   RxInt _pageIndex = 0.obs;
@@ -15,7 +15,7 @@ class BottomNavController extends GetxController {
     switch (page) {
       case Page.HOME:
       case Page.TEAMPLAY:
-      case Page.SCHEDUAL:
+      case Page.SCHEDULE:
       case Page.MYPAGE:
         moveToPage(value);
     }

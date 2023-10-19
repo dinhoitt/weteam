@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weteam/src/widget/image_date.dart';
+import 'package:weteam/src/data/image_date.dart';
 
 class BuildBox2 extends StatelessWidget {
   const BuildBox2({super.key});
