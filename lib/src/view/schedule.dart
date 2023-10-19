@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/widget/calendar.dart';
+import 'package:weteam/src/widget/datepicker.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({Key? key}) : super(key: key);
@@ -13,7 +14,27 @@ class Schedule extends StatefulWidget {
 class _ScheduleState extends State<Schedule> {
   DateTime selectedDate = DateTime.now();
   DateTime focusedDate = DateTime.now();
+
   final GlobalKey _calendarKey = GlobalKey();
+
+  Future<void> _selectDate() async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return DatePicker(
+          onDateChanged: (selectedDate) {
+            if (selectedDate != null) {
+              setState(() {
+                this.selectedDate = selectedDate;
+                this.focusedDate = selectedDate;
+              });
+            }
+          },
+          initialDate: selectedDate,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,25 +78,12 @@ class _ScheduleState extends State<Schedule> {
                   child: Row(
                     children: [
                       TextButton(
-                        onPressed: () async {
-                          DateTime? date = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2100),
-                          );
-                          if (date != null) {
-                            setState(() {
-                              selectedDate = date;
-                              focusedDate = date;
-                            });
-                          }
-                        },
+                        onPressed: _selectDate,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              '${selectedDate!.year}.${selectedDate!.month}',
+                              '${selectedDate.year}.${selectedDate.month}',
                               style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
