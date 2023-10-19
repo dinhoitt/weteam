@@ -53,7 +53,7 @@ class _ScheduleState extends State<Schedule> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     children: [
                       TextButton(
@@ -101,7 +101,7 @@ class _ScheduleState extends State<Schedule> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(18.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
@@ -115,16 +115,18 @@ class _ScheduleState extends State<Schedule> {
                     ),
                   ],
                 ),
-                child: SimpleCalendar(
-                  key: _calendarKey,
-                  format: CalendarFormat.month,
-                  focusedDay: focusedDate,
-                  onDaySelected: (selectedDay, newFocusedDay) {
-                    setState(() {
-                      selectedDate = selectedDay;
-                      focusedDate = newFocusedDay;
-                    });
-                  },
+                child: SingleChildScrollView(
+                  child: SimpleCalendar(
+                    key: _calendarKey,
+                    format: CalendarFormat.month,
+                    focusedDay: focusedDate,
+                    onDaySelected: (selectedDay, newFocusedDay) {
+                      setState(() {
+                        selectedDate = selectedDay;
+                        focusedDate = newFocusedDay;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),

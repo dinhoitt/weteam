@@ -26,11 +26,55 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
       calendarBuilders: CalendarBuilders(
         dowBuilder: (context, day) {
           switch (day.weekday) {
+            case 1:
+              return Center(
+                child: Text(
+                  '월',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
+            case 2:
+              return Center(
+                child: Text(
+                  '화',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
+            case 3:
+              return Center(
+                child: Text(
+                  '수',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
+            case 4:
+              return Center(
+                child: Text(
+                  '목',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
+            case 5:
+              return Center(
+                child: Text(
+                  '금',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
             case 6:
               return Center(
                 child: Text(
                   '토',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(
+                      color: Colors.blue, fontWeight: FontWeight.bold),
+                ),
+              );
+            case 7:
+              return Center(
+                child: Text(
+                  '일',
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               );
           }
@@ -76,6 +120,10 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
       calendarStyle: CalendarStyle(
         defaultTextStyle: TextStyle(color: Colors.black),
         holidayTextStyle: TextStyle(color: Colors.red), // 공휴일 텍스트 스타일
+        todayDecoration: BoxDecoration(
+          color: Color(0xFF666666),
+          shape: BoxShape.circle,
+        ),
       ),
       holidayPredicate: (day) {
         // 공휴일 추가
