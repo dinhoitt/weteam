@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/controller/bottom_nav_controller.dart';
 import 'package:weteam/src/view/home.dart';
+import 'package:weteam/src/view/mypage.dart';
 import 'package:weteam/src/view/schedule.dart';
 import 'package:weteam/src/view/teamplay.dart';
 
@@ -61,9 +62,7 @@ class App extends GetView<BottomNavController> {
         const Home(),
         const TeamPlay(),
         const Schedule(),
-        Container(
-          color: Colors.blue,
-        ),
+        const MyPage(),
       ],
     );
   }
