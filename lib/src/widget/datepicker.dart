@@ -27,6 +27,7 @@ class _DatePickerState extends State<DatePicker> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
+      contentPadding: EdgeInsets.only(top: 5.0),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -58,15 +59,40 @@ class _DatePickerState extends State<DatePicker> {
               _buildPickerItem(_selectedMonth + 1, color: Colors.grey),
             ],
           ),
-          ElevatedButton(
-            onPressed: _onDateChanged,
-            child: Text(
-              '완료',
-              style: TextStyle(color: Colors.black),
-            ),
-            style: ElevatedButton.styleFrom(
-              elevation: 0.0,
-              primary: Colors.white,
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, true);
+                    },
+                    child: Text(
+                      '취소',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: TextButton.styleFrom(
+                      elevation: 0.0,
+                      primary: Colors.white,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TextButton(
+                    onPressed: _onDateChanged,
+                    child: Text(
+                      '완료',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: TextButton.styleFrom(
+                      elevation: 0.0,
+                      primary: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -78,18 +104,23 @@ class _DatePickerState extends State<DatePicker> {
       {bool isBold = false, double fontSize = 14.0, Color? color}) {
     return InkWell(
       onTap: () {
-        if (value <= 12) {
-          setState(() {
+        setState(() {
+          if (value == 0 || value == 13) {
+            _selectedMonth = (value == 13) ? 1 : 12;
+            _selectedYear += (value == 13) ? 1 : -1;
+          } else if (value > 0 && value <= 12) {
             _selectedMonth = value;
-          });
-        } else {
-          setState(() {
+          } else {
             _selectedYear = value;
-          });
-        }
+          }
+        });
       },
       child: Text(
-        value.toString(),
+        (_selectedMonth == 12 && value == 13)
+            ? '1'
+            : (_selectedMonth == 1 && value == 0)
+                ? '12'
+                : value.toString(),
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
           fontSize: fontSize,
