@@ -77,6 +77,8 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
                       TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               );
+            default:
+              return Center(child: Text(day.day.toString()));
           }
         },
         defaultBuilder: (context, day, _) {
