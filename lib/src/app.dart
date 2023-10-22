@@ -62,7 +62,7 @@ class App extends GetView<BottomNavController> {
         const Home(),
         const TeamPlay(),
         const Schedule(),
-        const MyPage(),
+        MyPage(),
       ],
     );
   }

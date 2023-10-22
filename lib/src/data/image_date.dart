@@ -37,4 +37,6 @@ class ImagePath {
   static String get addschedule => 'assets/images/add_schedule.png';
   static String get sharetext => 'assets/images/share_text.png';
   static String get downarrow => 'assets/images/downarrow.png';
+  static String get miniinfo => 'assets/images/min_info.png';
+  static String get arrow => 'assets/images/arrow.png';
 }
