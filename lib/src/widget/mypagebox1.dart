@@ -6,8 +6,8 @@ import 'package:weteam/src/data/image_date.dart';
 
 class MyPageBox1 extends StatelessWidget {
   final MyPageController controller = Get.put(MyPageController());
-
-  double progressValue = 0.7;
+  final double progressValue = 0.7; // 게이지 값
+  final GlobalKey _toolTipKey = GlobalKey(); // 툴팁 터치키
 
   MyPageBox1({super.key});
 
@@ -38,7 +38,7 @@ class MyPageBox1 extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 15.0),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start, // 항목들을 가운데 정렬
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Obx(() {
                       return Padding(
@@ -76,12 +76,21 @@ class MyPageBox1 extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              'xxx님',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 2.0),
+                              child: Text(
+                                'xxx님',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
                             ),
-                            Text('xx대 xxxxx 학부'),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 2.0),
+                              child: Text('xx대 xxxxx 학부'),
+                            ),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 5.0),
@@ -117,10 +126,36 @@ class MyPageBox1 extends StatelessWidget {
                       horizontal: 2.0,
                       vertical: 8.0,
                     ),
-                    child: Image.asset(
-                      ImagePath.miniinfo,
-                      width: 16,
-                      height: 16,
+                    child: InkWell(
+                      onTap: () {
+                        final dynamic tooltip = _toolTipKey.currentState;
+                        tooltip?.ensureTooltipVisible();
+                      },
+                      child: Tooltip(
+                        key: _toolTipKey,
+                        message:
+                            '팀 메이트력이란? \n 이전 팀플 팀원들의 평가를 기반으로 집계된 평점으로, 나의 팀플 매너를 수치로 나타냅니다.',
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        child: Image.asset(
+                          ImagePath.miniinfo,
+                          width: 16,
+                          height: 16,
+                        ),
+                      ),
                     ),
                   )
                 ],
@@ -169,7 +204,7 @@ class MyPageBox1 extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 8.0,
-        vertical: 1.0,
+        vertical: 3.0,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
