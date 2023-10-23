@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weteam/src/controller/profile_controller.dart';
+import 'package:weteam/src/page/profile_modify.dart';
 import 'package:weteam/src/widget/mypagebox1.dart';
 
 class MyPage extends StatelessWidget {
+  final ProfileController controller = Get.put(ProfileController());
   MyPage({Key? key}) : super(key: key);
 
   @override
@@ -51,7 +55,14 @@ class MyPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 5.0, vertical: 5.0),
-                  child: Text('내 프로필 수정하기'),
+
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(Profile_Modify());
+                    },
+                    child: Text('내 프로필 수정하기'),
+                  ),
+                  // 프로필 수정 페이지 만들어서 연결
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(

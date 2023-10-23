@@ -39,4 +39,5 @@ class ImagePath {
   static String get downarrow => 'assets/images/downarrow.png';
   static String get miniinfo => 'assets/images/min_info.png';
   static String get arrow => 'assets/images/arrow.png';
+  static String get mapsearch => 'assets/images/mapsearch.png';
 }
