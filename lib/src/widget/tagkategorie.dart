@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 
 class TagKategorie extends StatefulWidget {
   final String text;
+  final bool isSelected; // 선택 됐는지
+  final VoidCallback onSelected; // 선택 여부를 알려주는 콜백
 
-  TagKategorie({required this.text});
+  TagKategorie(
+      {required this.text, this.isSelected = false, required this.onSelected});
 
   @override
   _TagKategorieState createState() => _TagKategorieState();
 }
 
 class _TagKategorieState extends State<TagKategorie> {
-  double fontSize = 12.0;
+  double get fontSize => widget.isSelected ? 14.0 : 12.0;
+  Color get textColor => widget.isSelected ? Colors.blue : Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +30,7 @@ class _TagKategorieState extends State<TagKategorie> {
       width: width,
       child: OutlinedButton(
         onPressed: () {
-          setState(() {
-            fontSize = 14.0;
-          });
+          widget.onSelected();
         },
         style: OutlinedButton.styleFrom(
           side: BorderSide.none,
@@ -42,6 +44,41 @@ class _TagKategorieState extends State<TagKategorie> {
           style: TextStyle(fontSize: fontSize),
         ),
       ),
+    );
+  }
+}
+
+class TagKategorieList extends StatefulWidget {
+  @override
+  _TagKategorieListState createState() => _TagKategorieListState();
+}
+
+class _TagKategorieListState extends State<TagKategorieList> {
+  String? selectedTag;
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> tags = [
+      '희망업무',
+      'MBTI',
+      '특기',
+      '설정',
+      '기타',
+    ];
+
+    return ListView.builder(
+      itemCount: tags.length,
+      itemBuilder: (context, index) {
+        return TagKategorie(
+          text: tags[index],
+          isSelected: selectedTag == tags[index],
+          onSelected: () {
+            setState(() {
+              selectedTag = tags[index];
+            });
+          },
+        );
+      },
     );
   }
 }

@@ -6,8 +6,14 @@ import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/widget/tagkategorie.dart';
 
-class Profile_Modify extends StatelessWidget {
+class Profile_Modify extends StatefulWidget {
+  @override
+  _Profile_ModifyState createState() => _Profile_ModifyState();
+}
+
+class _Profile_ModifyState extends State<Profile_Modify> {
   final ProfileController controller = Get.find();
+  String? selectedTag;
 
   @override
   Widget build(BuildContext context) {
@@ -126,13 +132,49 @@ class Profile_Modify extends StatelessWidget {
                           children: [
                             TagKategorie(
                               text: '희망업무',
+                              isSelected: selectedTag == '희망업무',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag = '희망업무';
+                                });
+                              },
                             ),
                             TagKategorie(
                               text: 'MBTI',
+                              isSelected: selectedTag == 'MBTI',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag = 'MBTI';
+                                });
+                              },
                             ),
-                            TagKategorie(text: '특기'),
-                            TagKategorie(text: '설정'),
-                            TagKategorie(text: '기타'),
+                            TagKategorie(
+                              text: '특기',
+                              isSelected: selectedTag == '특기',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag = '특기';
+                                });
+                              },
+                            ),
+                            TagKategorie(
+                              text: '설정',
+                              isSelected: selectedTag == '설정',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag = '설정';
+                                });
+                              },
+                            ),
+                            TagKategorie(
+                              text: '기타',
+                              isSelected: selectedTag == '기타',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag = '기타';
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ),
