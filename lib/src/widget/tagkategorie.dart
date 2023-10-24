@@ -5,15 +5,18 @@ class TagKategorie extends StatefulWidget {
   final bool isSelected; // 선택 됐는지
   final VoidCallback onSelected; // 선택 여부를 알려주는 콜백
 
-  TagKategorie(
-      {required this.text, this.isSelected = false, required this.onSelected});
+  TagKategorie({
+    required this.text,
+    this.isSelected = false,
+    required this.onSelected,
+  });
 
   @override
   _TagKategorieState createState() => _TagKategorieState();
 }
 
 class _TagKategorieState extends State<TagKategorie> {
-  double get fontSize => widget.isSelected ? 14.0 : 12.0;
+  double get fontSize => widget.isSelected ? 14.0 : 11.0;
   Color get textColor => widget.isSelected ? Colors.blue : Colors.black;
 
   @override
@@ -24,7 +27,7 @@ class _TagKategorieState extends State<TagKategorie> {
       textDirection: TextDirection.ltr,
     )..layout(minWidth: 0, maxWidth: double.infinity);
 
-    double width = textPainter.size.width + 10;
+    double width = textPainter.size.width + 12;
 
     return SizedBox(
       width: width,
@@ -41,7 +44,7 @@ class _TagKategorieState extends State<TagKategorie> {
           widget.text,
           maxLines: 1,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: fontSize),
+          style: TextStyle(fontSize: fontSize, color: textColor),
         ),
       ),
     );
@@ -66,19 +69,25 @@ class _TagKategorieListState extends State<TagKategorieList> {
       '기타',
     ];
 
-    return ListView.builder(
-      itemCount: tags.length,
-      itemBuilder: (context, index) {
-        return TagKategorie(
-          text: tags[index],
-          isSelected: selectedTag == tags[index],
-          onSelected: () {
-            setState(() {
-              selectedTag = tags[index];
-            });
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true, // ListView 크기가 자식의 크기에 맞게 줄어듦.
+          physics: NeverScrollableScrollPhysics(), // 스크롤 기능을 비활성화
+          itemCount: tags.length,
+          itemBuilder: (context, index) {
+            return TagKategorie(
+              text: tags[index],
+              isSelected: selectedTag == tags[index],
+              onSelected: () {
+                setState(() {
+                  selectedTag = tags[index];
+                });
+              },
+            );
           },
-        );
-      },
+        ),
+      ],
     );
   }
 }
