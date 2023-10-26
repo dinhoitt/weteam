@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/widget/tagkategorie.dart';
@@ -13,8 +13,22 @@ class Profile_Modify extends StatefulWidget {
 
 class _Profile_ModifyState extends State<Profile_Modify> {
   final ProfileController controller = Get.find();
-  String? selectedTag;
-  bool showMBTITags = false;
+
+  Rx<File?> _selectImageFile = Rx<File?>(null);
+  RxString selectedTag = ''.obs;
+  RxBool showMBTITags = false.obs;
+  RxBool showPOSTags = false.obs;
+
+  _selectImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectImageFile.value = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,30 +75,66 @@ class _Profile_ModifyState extends State<Profile_Modify> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(top: Get.height * 0.05),
-                  child: ClipOval(
-                    child: controller.profileImagePath.value.isNotEmpty
-                        ? Image.file(
-                            File(controller.profileImagePath.value),
-                            width: 120.0,
-                            height: 120.0,
-                            fit: BoxFit.cover,
-                          )
-                        : GestureDetector(
-                            onTap: () async {
-                              await controller.pickImage();
-                            },
-                            child: Container(
-                              color: Colors.blue,
-                              width: 120.0,
-                              height: 120,
-                              child: Center(
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.white,
-                                ),
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                title: new Text('프로필 사진 설정'),
+                                onTap: () {},
                               ),
-                            ),
-                          ),
+                              ListTile(
+                                title: new Text('갤러리에서 사진 선택'),
+                                onTap: () {
+                                  _selectImage();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                title: new Text('직접 사진 찍기'),
+                                onTap: () {
+                                  //카메라 키기
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                title: new Text('기존 이미지 삭제'),
+                                onTap: () {
+                                  // 삭제하는 기능
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Obx(
+                      () => ClipOval(
+                        child: Container(
+                          color: Colors.blue,
+                          width: 120.0,
+                          height: 120,
+                          child: _selectImageFile.value == null
+                              ? Container(
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : Image.file(
+                                  _selectImageFile.value!,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -115,63 +165,75 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                     width: (Get.width),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 15.0, // 각각의 태그 사이의 가로 간격
-                        runSpacing: 8.0, // 줄 사이의 간격
-                        children: [
-                          TagKategorie(
-                            text: '희망업무',
-                            isSelected: selectedTag == '희망업무',
-                            onSelected: () {
-                              setState(() {
-                                selectedTag = '희망업무';
-                              });
-                            },
-                          ),
-                          TagKategorie(
-                            text: 'MBTI',
-                            isSelected: selectedTag == 'MBTI',
-                            onSelected: () {
-                              setState(() {
-                                selectedTag = 'MBTI';
-                                showMBTITags = true;
-                              });
-                            },
-                          ),
-                          TagKategorie(
-                            text: '특기',
-                            isSelected: selectedTag == '특기',
-                            onSelected: () {
-                              setState(() {
-                                selectedTag = '특기';
-                              });
-                            },
-                          ),
-                          TagKategorie(
-                            text: '설정',
-                            isSelected: selectedTag == '설정',
-                            onSelected: () {
-                              setState(() {
-                                selectedTag = '설정';
-                              });
-                            },
-                          ),
-                          TagKategorie(
-                            text: '기타',
-                            isSelected: selectedTag == '기타',
-                            onSelected: () {
-                              setState(() {
-                                selectedTag = '기타';
-                              });
-                            },
-                          ),
-                        ],
+                      child: Obx(
+                        () => Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 15.0, // 각각의 태그 사이의 가로 간격
+                          runSpacing: 8.0, // 줄 사이의 간격
+                          children: [
+                            TagKategorie(
+                              text: '희망업무',
+                              isSelected: selectedTag == '희망업무',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag.value = '희망업무';
+                                  showPOSTags.value = true;
+                                  showMBTITags.value = false;
+                                });
+                              },
+                            ),
+                            TagKategorie(
+                              text: 'MBTI',
+                              isSelected: selectedTag == 'MBTI',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag.value = 'MBTI';
+                                  showPOSTags.value = false;
+                                  showMBTITags.value = true;
+                                });
+                              },
+                            ),
+                            TagKategorie(
+                              text: '특기',
+                              isSelected: selectedTag == '특기',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag.value = '특기';
+                                  showPOSTags.value = false;
+                                  showMBTITags.value = false;
+                                });
+                              },
+                            ),
+                            TagKategorie(
+                              text: '설정',
+                              isSelected: selectedTag == '설정',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag.value = '설정';
+                                  showPOSTags.value = false;
+                                  showMBTITags.value = false;
+                                });
+                              },
+                            ),
+                            TagKategorie(
+                              text: '기타',
+                              isSelected: selectedTag == '기타',
+                              onSelected: () {
+                                setState(() {
+                                  selectedTag.value = '기타';
+                                  showPOSTags.value = false;
+                                  showMBTITags.value = false;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-                if (showMBTITags) _buildMBTITags() // 여기서 MBTI 태그를 표시합니다.
+                if (showMBTITags.value) _buildMBTITags(), // 여기서 MBTI 태그를 표시합니다.
+                if (showPOSTags.value) _buildPosTags(),
               ],
             );
           }),
@@ -198,6 +260,50 @@ class _Profile_ModifyState extends State<Profile_Modify> {
       'ISFJ',
       'ISTP',
       'ISTJ',
+    ];
+    double screenWidth = MediaQuery.of(context).size.width;
+    double itemWidth =
+        (screenWidth - (5 * 8.0)) / 4; // (화면너비 - (간격 * 5)) / 4개 항목
+    return Container(
+      width: 270.0,
+      child: Wrap(
+        spacing: 6.0, // 태그 사이의 가로 간격
+        runSpacing: 8, // 태그 사이의 세로 간격
+        children: mbtiTags.map((tag) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  border: Border.all(color: Colors.blue, width: 0.5),
+                ),
+                child: Text(
+                  '# $tag',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildPosTags() {
+    List<String> mbtiTags = [
+      '팀장',
+      'PPT 제작',
+      '타이핑',
+      '자료조사',
+      '발표',
+      '영상편집',
+      '일러스트',
+      '디자인',
     ];
     double screenWidth = MediaQuery.of(context).size.width;
     double itemWidth =

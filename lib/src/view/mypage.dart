@@ -58,7 +58,7 @@ class MyPage extends StatelessWidget {
 
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(Profile_Modify());
+                      Get.to(() => Profile_Modify());
                     },
                     child: Text('내 프로필 수정하기'),
                   ),
