@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -110,9 +111,11 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Container(
-                        height: 23.0, // 원하는 높이로 설정
+                        height: 23.0,
                         child: InkWell(
-                          onTap: _removeOverlay,
+                          onTap: () async {
+                            await _captureImage();
+                          },
                           child: Center(
                             child: Text(
                               '직접 사진 찍기',
@@ -158,6 +161,17 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   void _removeOverlay() {
     _overlayEntry?.remove();
     _overlayEntry = null;
+  }
+
+  _captureImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+
+    if (image != null) {
+      setState(() {
+        _selectImageFile.value = File(image.path);
+      });
+    }
   }
 
   @override
