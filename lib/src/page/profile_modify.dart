@@ -55,7 +55,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
           child: Obx(() {
             return Column(
               children: [
@@ -110,25 +110,14 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0, vertical: 10.0),
+                      horizontal: 1.0, vertical: 5.0),
                   child: Container(
                     width: (Get.width),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 4.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(0, 0),
-                        ),
-                      ],
-                    ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 1.0),
                       child: Wrap(
                         alignment: WrapAlignment.center,
-                        spacing: 10.0, // 각각의 태그 사이의 가로 간격
+                        spacing: 15.0, // 각각의 태그 사이의 가로 간격
                         runSpacing: 8.0, // 줄 사이의 간격
                         children: [
                           TagKategorie(
@@ -208,19 +197,38 @@ class _Profile_ModifyState extends State<Profile_Modify> {
       'ISFP',
       'ISFJ',
       'ISTP',
-      'ISTJ'
+      'ISTJ',
     ];
-
-    return Wrap(
-      spacing: 4, // 가로 간격
-      runSpacing: 6, // 세로 간격
-      children: mbtiTags.map((tag) {
-        return TagKategorie(
-          text: '#$tag',
-          isSelected: false, // MBTI 태그는 선택되지 않은 상태로 표시
-          onSelected: () {}, // MBTI 태그 선택 시 특별한 동작은 없음);
-        );
-      }).toList(),
+    double screenWidth = MediaQuery.of(context).size.width;
+    double itemWidth =
+        (screenWidth - (5 * 8.0)) / 4; // (화면너비 - (간격 * 5)) / 4개 항목
+    return Container(
+      width: 270.0,
+      child: Wrap(
+        spacing: 6.0, // 태그 사이의 가로 간격
+        runSpacing: 8, // 태그 사이의 세로 간격
+        children: mbtiTags.map((tag) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  border: Border.all(color: Colors.blue, width: 0.5),
+                ),
+                child: Text(
+                  '# $tag',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }
