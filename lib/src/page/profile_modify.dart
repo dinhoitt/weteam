@@ -19,6 +19,8 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   RxBool showMBTITags = false.obs;
   RxBool showPOSTags = false.obs;
 
+  OverlayEntry? _overlayEntry;
+
   _selectImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -28,6 +30,134 @@ class _Profile_ModifyState extends State<Profile_Modify> {
         _selectImageFile.value = File(image.path);
       });
     }
+  }
+
+  void _showOverlay(BuildContext context) {
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Container(
+              color: Colors.black
+                  .withOpacity(0.3), // 0.7의 값을 조정하여 불투명도를 원하는대로 변경할 수 있습니다.
+            ),
+          ),
+          GestureDetector(
+            onTap: _removeOverlay, // 다른 곳을 터치하면 _removeOverlay 함수를 호출합니다.
+            behavior: HitTestBehavior.translucent, // 투명 영역도 탭을 감지합니다.
+          ),
+          Positioned(
+            bottom: 10.0,
+            left: 5.0,
+            right: 5.0,
+            child: Material(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12.0),
+                      child: Container(
+                        height: 23.0,
+                        child: Center(
+                          child: Text(
+                            '프로필 사진 설정',
+                            style:
+                                TextStyle(fontSize: 15.0, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 0.8,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Container(
+                        height: 23.0, // 원하는 높이로 설정
+                        child: InkWell(
+                          onTap: () {
+                            _selectImage();
+                            _removeOverlay();
+                          },
+                          child: Center(
+                            child: Text(
+                              '갤러리에서 사진 선택',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 0.8,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Container(
+                        height: 23.0, // 원하는 높이로 설정
+                        child: InkWell(
+                          onTap: _removeOverlay,
+                          child: Center(
+                            child: Text(
+                              '직접 사진 찍기',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 0.8,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3.0, bottom: 12.0),
+                      child: Container(
+                        height: 35.0, // 원하는 높이로 설정
+                        child: InkWell(
+                          onTap: _removeOverlay,
+                          child: Center(
+                            child: Text(
+                              '기존 이미지로 변경',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    if (_overlayEntry != null) {
+      Overlay.of(context).insert(_overlayEntry!);
+    }
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
   }
 
   @override
@@ -45,13 +175,13 @@ class _Profile_ModifyState extends State<Profile_Modify> {
           ),
           centerTitle: true,
         ),
-        body: _body(),
+        body: _body(context),
         backgroundColor: Color(0xFFF5F5F5),
       ),
     );
   }
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
       child: Container(
@@ -77,41 +207,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                   padding: EdgeInsets.only(top: Get.height * 0.05),
                   child: GestureDetector(
                     onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ListTile(
-                                title: new Text('프로필 사진 설정'),
-                                onTap: () {},
-                              ),
-                              ListTile(
-                                title: new Text('갤러리에서 사진 선택'),
-                                onTap: () {
-                                  _selectImage();
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                title: new Text('직접 사진 찍기'),
-                                onTap: () {
-                                  //카메라 키기
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                title: new Text('기존 이미지 삭제'),
-                                onTap: () {
-                                  // 삭제하는 기능
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      _showOverlay(context);
                     },
                     child: Obx(
                       () => ClipOval(
@@ -261,9 +357,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
       'ISTP',
       'ISTJ',
     ];
-    double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth =
-        (screenWidth - (5 * 8.0)) / 4; // (화면너비 - (간격 * 5)) / 4개 항목
+
     return Container(
       width: 270.0,
       child: Wrap(
@@ -305,9 +399,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
       '일러스트',
       '디자인',
     ];
-    double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth =
-        (screenWidth - (5 * 8.0)) / 4; // (화면너비 - (간격 * 5)) / 4개 항목
+
     return Container(
       width: 270.0,
       child: Wrap(
