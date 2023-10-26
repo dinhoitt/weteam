@@ -13,7 +13,7 @@ class Profile_Modify extends StatefulWidget {
 }
 
 class _Profile_ModifyState extends State<Profile_Modify> {
-  final ProfileController controller = Get.find();
+  final ProfileController controller = Get.find<ProfileController>();
 
   Rx<File?> _selectImageFile = Rx<File?>(null);
   RxString selectedTag = ''.obs;

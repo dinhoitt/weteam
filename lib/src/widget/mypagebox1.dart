@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/controller/mypage_controller.dart';
@@ -123,9 +122,11 @@ class _MyPageBox1State extends State<MyPageBox1> {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: ClipOval(
-                            child: controller.mypageImagePath.value.isNotEmpty
+                            child: (controller
+                                        .mypageImagePath.value.isNotEmpty &&
+                                    controller.selectedImageFile.value != null)
                                 ? Image.file(
-                                    File(controller.mypageImagePath.value),
+                                    controller.selectedImageFile.value!,
                                     width: 100.0,
                                     height: 100.0,
                                   )
