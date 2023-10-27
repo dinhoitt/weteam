@@ -16,9 +16,11 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   final ProfileController controller = Get.find<ProfileController>();
 
   Rx<File?> _selectImageFile = Rx<File?>(null);
+
   RxString selectedTag = ''.obs;
   RxBool showMBTITags = false.obs;
   RxBool showPOSTags = false.obs;
+  RxBool showSpecialtyags = false.obs;
 
   OverlayEntry? _overlayEntry;
 
@@ -289,6 +291,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '희망업무';
                                   showPOSTags.value = true;
                                   showMBTITags.value = false;
+                                  showSpecialtyags.value = false;
                                 });
                               },
                             ),
@@ -300,6 +303,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = 'MBTI';
                                   showPOSTags.value = false;
                                   showMBTITags.value = true;
+                                  showSpecialtyags.value = false;
                                 });
                               },
                             ),
@@ -311,6 +315,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '특기';
                                   showPOSTags.value = false;
                                   showMBTITags.value = false;
+                                  showSpecialtyags.value = true;
                                 });
                               },
                             ),
@@ -322,6 +327,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '설정';
                                   showPOSTags.value = false;
                                   showMBTITags.value = false;
+                                  showSpecialtyags.value = false;
                                 });
                               },
                             ),
@@ -333,6 +339,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '기타';
                                   showPOSTags.value = false;
                                   showMBTITags.value = false;
+                                  showSpecialtyags.value = false;
                                 });
                               },
                             ),
@@ -344,6 +351,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                 ),
                 if (showMBTITags.value) _buildMBTITags(), // 여기서 MBTI 태그를 표시합니다.
                 if (showPOSTags.value) _buildPosTags(),
+                if (showSpecialtyags.value) _buildSpecialtyTags(),
               ],
             );
           }),
@@ -403,7 +411,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   }
 
   Widget _buildPosTags() {
-    List<String> mbtiTags = [
+    List<String> posTags = [
       '팀장',
       'PPT 제작',
       '타이핑',
@@ -419,7 +427,55 @@ class _Profile_ModifyState extends State<Profile_Modify> {
       child: Wrap(
         spacing: 6.0, // 태그 사이의 가로 간격
         runSpacing: 8, // 태그 사이의 세로 간격
-        children: mbtiTags.map((tag) {
+        children: posTags.map((tag) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  border: Border.all(color: Colors.blue, width: 0.5),
+                ),
+                child: Text(
+                  '# $tag',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildSpecialtyTags() {
+    List<String> specialtyTags = [
+      '빠른 피드백',
+      '중국어',
+      '일본어',
+      '영어',
+      '기타 외국어 능력',
+      '포토샵',
+      '일러스트',
+      '디자인',
+      '프리미어프로',
+      '에프터이펙트',
+      '코딩',
+      'C',
+      'Python',
+      'Java',
+    ];
+
+    return Container(
+      width: 270.0,
+      child: Wrap(
+        spacing: 6.0, // 태그 사이의 가로 간격
+        runSpacing: 8, // 태그 사이의 세로 간격
+        children: specialtyTags.map((tag) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2.0),
             child: GestureDetector(
