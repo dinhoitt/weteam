@@ -11,6 +11,7 @@ class PosTags extends StatelessWidget {
       '타이핑',
       '자료조사',
       '발표',
+      '촬영',
       '영상편집',
       '일러스트',
       '디자인',

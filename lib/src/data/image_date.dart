@@ -40,4 +40,6 @@ class ImagePath {
   static String get miniinfo => 'assets/images/min_info.png';
   static String get arrow => 'assets/images/arrow.png';
   static String get mapsearch => 'assets/images/mapsearch.png';
+  static String get cancelbutton => 'assets/images/cancelbutton.png';
+  static String get savebutton => 'assets/images/savebutton.png';
 }
