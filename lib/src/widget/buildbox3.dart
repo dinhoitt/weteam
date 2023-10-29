@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
-import 'package:weteam/src/page/ladder.dart';
+import 'package:weteam/src/page/laddersetting.dart';
 
 class BuildBox3 extends StatelessWidget {
   const BuildBox3({super.key});
@@ -30,7 +30,7 @@ class BuildBox3 extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => LadderPage());
+                  Get.to(() => LadderSettingPage());
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
-import 'package:weteam/src/view/mypage.dart';
 import 'package:weteam/src/widget/mypagewidget/etctags.dart';
 import 'package:weteam/src/widget/mypagewidget/mbtitags.dart';
 import 'package:weteam/src/widget/mypagewidget/personalitytags.dart';
