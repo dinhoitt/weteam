@@ -48,13 +48,12 @@ class _Profile_ModifyState extends State<Profile_Modify> {
         children: <Widget>[
           Positioned.fill(
             child: Container(
-              color: Colors.black
-                  .withOpacity(0.3), // 0.7의 값을 조정하여 불투명도를 원하는대로 변경할 수 있습니다.
+              color: Colors.black.withOpacity(0.3), //불투명도 조절
             ),
           ),
           GestureDetector(
-            onTap: _removeOverlay, // 다른 곳을 터치하면 _removeOverlay 함수를 호출합니다.
-            behavior: HitTestBehavior.translucent, // 투명 영역도 탭을 감지합니다.
+            onTap: _removeOverlay, // 다른 곳을 터치하면 _removeOverlay 함수를 호출
+            behavior: HitTestBehavior.translucent, // 투명 영역 탭 감지
           ),
           Positioned(
             bottom: 10.0,
@@ -392,7 +391,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Get.to(() => MyPage());
+                    Get.back();
                   },
                   child: Image.asset(ImagePath.cancelbutton),
                 ),
