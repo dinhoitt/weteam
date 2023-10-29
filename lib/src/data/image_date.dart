@@ -42,4 +42,5 @@ class ImagePath {
   static String get mapsearch => 'assets/images/mapsearch.png';
   static String get cancelbutton => 'assets/images/cancelbutton.png';
   static String get savebutton => 'assets/images/savebutton.png';
+  static String get startbutton => 'assets/images/startbox.png';
 }
