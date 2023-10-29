@@ -5,6 +5,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/widget/mypagewidget/etctags.dart';
+import 'package:weteam/src/widget/mypagewidget/mbtitags.dart';
+import 'package:weteam/src/widget/mypagewidget/personalitytags.dart';
+import 'package:weteam/src/widget/mypagewidget/postags.dart';
+import 'package:weteam/src/widget/mypagewidget/specialtytags.dart';
 import 'package:weteam/src/widget/tagkategorie.dart';
 
 class Profile_Modify extends StatefulWidget {
@@ -19,6 +24,9 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   RxString selectedTag = ''.obs;
   RxBool showMBTITags = false.obs;
   RxBool showPOSTags = false.obs;
+  RxBool showPersonalityTags = false.obs;
+  RxBool showSpecialtyTags = false.obs;
+  RxBool showETCTags = false.obs;
 
   OverlayEntry? _overlayEntry;
 
@@ -289,6 +297,9 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '희망업무';
                                   showPOSTags.value = true;
                                   showMBTITags.value = false;
+                                  showSpecialtyTags.value = false;
+                                  showPersonalityTags.value = false;
+                                  showETCTags.value = false;
                                 });
                               },
                             ),
@@ -300,6 +311,9 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = 'MBTI';
                                   showPOSTags.value = false;
                                   showMBTITags.value = true;
+                                  showSpecialtyTags.value = false;
+                                  showPersonalityTags.value = false;
+                                  showETCTags.value = false;
                                 });
                               },
                             ),
@@ -311,17 +325,23 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '특기';
                                   showPOSTags.value = false;
                                   showMBTITags.value = false;
+                                  showSpecialtyTags.value = true;
+                                  showPersonalityTags.value = false;
+                                  showETCTags.value = false;
                                 });
                               },
                             ),
                             TagKategorie(
-                              text: '설정',
-                              isSelected: selectedTag == '설정',
+                              text: '성격',
+                              isSelected: selectedTag == '성격',
                               onSelected: () {
                                 setState(() {
-                                  selectedTag.value = '설정';
+                                  selectedTag.value = '성격';
                                   showPOSTags.value = false;
                                   showMBTITags.value = false;
+                                  showSpecialtyTags.value = false;
+                                  showPersonalityTags.value = true;
+                                  showETCTags.value = false;
                                 });
                               },
                             ),
@@ -333,6 +353,9 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                                   selectedTag.value = '기타';
                                   showPOSTags.value = false;
                                   showMBTITags.value = false;
+                                  showSpecialtyTags.value = false;
+                                  showPersonalityTags.value = false;
+                                  showETCTags.value = true;
                                 });
                               },
                             ),
@@ -342,104 +365,15 @@ class _Profile_ModifyState extends State<Profile_Modify> {
                     ),
                   ),
                 ),
-                if (showMBTITags.value) _buildMBTITags(), // 여기서 MBTI 태그를 표시합니다.
-                if (showPOSTags.value) _buildPosTags(),
+                if (showMBTITags.value) MBTITags(), // 여기서 MBTI 태그를 표시합니다.
+                if (showPOSTags.value) PosTags(),
+                if (showSpecialtyTags.value) SpecialtyTags(),
+                if (showPersonalityTags.value) PersonalityTags(),
+                if (showETCTags.value) ETCTags(),
               ],
             );
           }),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMBTITags() {
-    List<String> mbtiTags = [
-      'ENFP',
-      'ENTJ',
-      'ENTP',
-      'ENFJ',
-      'ESTP',
-      'ESTJ',
-      'ESFJ',
-      'ESFP',
-      'INFP',
-      'INFJ',
-      'INTP',
-      'INTJ',
-      'ISFP',
-      'ISFJ',
-      'ISTP',
-      'ISTJ',
-    ];
-
-    return Container(
-      width: 270.0,
-      child: Wrap(
-        spacing: 6.0, // 태그 사이의 가로 간격
-        runSpacing: 8, // 태그 사이의 세로 간격
-        children: mbtiTags.map((tag) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.blue, width: 0.5),
-                ),
-                child: Text(
-                  '# $tag',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildPosTags() {
-    List<String> mbtiTags = [
-      '팀장',
-      'PPT 제작',
-      '타이핑',
-      '자료조사',
-      '발표',
-      '영상편집',
-      '일러스트',
-      '디자인',
-    ];
-
-    return Container(
-      width: 270.0,
-      child: Wrap(
-        spacing: 6.0, // 태그 사이의 가로 간격
-        runSpacing: 8, // 태그 사이의 세로 간격
-        children: mbtiTags.map((tag) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.blue, width: 0.5),
-                ),
-                child: Text(
-                  '# $tag',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
       ),
     );
   }
