@@ -45,27 +45,43 @@ class LadderSettingPage extends StatelessWidget {
               thickness: 1.0,
               color: Colors.grey,
             ),
+            SizedBox(
+              height: 100.0,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CounterWidget(),
               ],
             ),
-            Obx(() => CheckboxListTile(
-                  title: Text("첫번째 아이템 이름 변경"),
-                  value: checkboxController.isChecked1.value,
-                  onChanged: (newValue) {
-                    checkboxController.toggleCheckBox1();
-                  },
-                  controlAffinity: ListTileControlAffinity.leading,
+            SizedBox(
+              height: 60.0,
+            ),
+            Obx(() => Transform.scale(
+                  scale: 0.8,
+                  child: CheckboxListTile(
+                    activeColor: Color(0xFFC86148),
+                    contentPadding: EdgeInsets.symmetric(vertical: 0.5),
+                    title: Text("참여자 이름 임의로 배정"),
+                    value: checkboxController.isChecked1.value,
+                    onChanged: (newValue) {
+                      checkboxController.toggleCheckBox1();
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
                 )),
-            Obx(() => CheckboxListTile(
-                  title: Text("두번째 아이템 이름 변경"),
-                  value: checkboxController.isChecked2.value,
-                  onChanged: (newValue) {
-                    checkboxController.toggleCheckBox2();
-                  },
-                  controlAffinity: ListTileControlAffinity.leading,
+            Obx(() => Transform.scale(
+                  scale: 0.8,
+                  child: CheckboxListTile(
+                    activeColor: Color(0xFFC86148),
+                    contentPadding: EdgeInsets.symmetric(vertical: 0.5),
+                    title: Text("사다리 타기 결과를 팀플에 반영"),
+                    value: checkboxController.isChecked2.value,
+                    onChanged: (newValue) {
+                      checkboxController.toggleCheckBox2();
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
                 )),
           ],
         ),
