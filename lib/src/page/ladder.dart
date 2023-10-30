@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weteam/src/game/ladder_game.dart';
 
 class LadderPage extends StatelessWidget {
   const LadderPage({super.key});
@@ -36,7 +37,6 @@ class LadderPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
           boxShadow: [
             BoxShadow(
-              // 상하좌우에 그림자 적용
               color: Colors.black.withOpacity(0.1),
               blurRadius: 4.0,
               spreadRadius: 2.0,
@@ -44,6 +44,7 @@ class LadderPage extends StatelessWidget {
             ),
           ],
         ),
+        child: LadderGame(),
       ),
     );
   }
