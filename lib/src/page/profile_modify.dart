@@ -5,6 +5,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/widget/mypagewidget/etctags.dart';
+import 'package:weteam/src/widget/mypagewidget/mbtitags.dart';
+import 'package:weteam/src/widget/mypagewidget/personalitytags.dart';
+import 'package:weteam/src/widget/mypagewidget/postags.dart';
+import 'package:weteam/src/widget/mypagewidget/specialtytags.dart';
 import 'package:weteam/src/widget/tagkategorie.dart';
 
 class Profile_Modify extends StatefulWidget {
@@ -20,7 +25,9 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   RxString selectedTag = ''.obs;
   RxBool showMBTITags = false.obs;
   RxBool showPOSTags = false.obs;
-  RxBool showSpecialtyags = false.obs;
+  RxBool showPersonalityTags = false.obs;
+  RxBool showSpecialtyTags = false.obs;
+  RxBool showETCTags = false.obs;
 
   OverlayEntry? _overlayEntry;
 
@@ -41,13 +48,12 @@ class _Profile_ModifyState extends State<Profile_Modify> {
         children: <Widget>[
           Positioned.fill(
             child: Container(
-              color: Colors.black
-                  .withOpacity(0.3), // 0.7의 값을 조정하여 불투명도를 원하는대로 변경할 수 있습니다.
+              color: Colors.black.withOpacity(0.3), //불투명도 조절
             ),
           ),
           GestureDetector(
-            onTap: _removeOverlay, // 다른 곳을 터치하면 _removeOverlay 함수를 호출합니다.
-            behavior: HitTestBehavior.translucent, // 투명 영역도 탭을 감지합니다.
+            onTap: _removeOverlay, // 다른 곳을 터치하면 _removeOverlay 함수를 호출
+            behavior: HitTestBehavior.translucent, // 투명 영역 탭 감지
           ),
           Positioned(
             bottom: 10.0,
@@ -200,302 +206,207 @@ class _Profile_ModifyState extends State<Profile_Modify> {
   Widget _body(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4.0,
-              spreadRadius: 2.0,
-              offset: Offset(0, 0),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
-          child: Obx(() {
-            return Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: Get.height * 0.05),
-                  child: GestureDetector(
-                    onTap: () {
-                      _showOverlay(context);
-                    },
-                    child: Obx(
-                      () => ClipOval(
-                        child: Container(
-                          color: Colors.blue,
-                          width: 120.0,
-                          height: 120,
-                          child: _selectImageFile.value == null
-                              ? Container(
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              : Image.file(
-                                  _selectImageFile.value!,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
-                    ),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4.0,
+                    spreadRadius: 2.0,
+                    offset: Offset(0, 0),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Row(
+                ],
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+                child: Obx(() {
+                  return Column(
                     children: [
-                      Transform.scale(
-                          scale: 0.6, child: Image.asset(ImagePath.mapsearch)),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none, // 텍스트 필드 아래 줄 제거
-                            hintText: '소속',
-                            hintStyle: TextStyle(color: Colors.grey),
+                      Padding(
+                        padding: EdgeInsets.only(top: Get.height * 0.05),
+                        child: GestureDetector(
+                          onTap: () {
+                            _showOverlay(context);
+                          },
+                          child: Obx(
+                            () => ClipOval(
+                              child: Container(
+                                color: Colors.blue,
+                                width: 120.0,
+                                height: 120,
+                                child: _selectImageFile.value == null
+                                    ? Container(
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                    : Image.file(
+                                        _selectImageFile.value!,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 1.0, vertical: 5.0),
-                  child: Container(
-                    width: (Get.width),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                      child: Obx(
-                        () => Wrap(
-                          alignment: WrapAlignment.center,
-                          spacing: 15.0, // 각각의 태그 사이의 가로 간격
-                          runSpacing: 8.0, // 줄 사이의 간격
+                      Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
                           children: [
-                            TagKategorie(
-                              text: '희망업무',
-                              isSelected: selectedTag == '희망업무',
-                              onSelected: () {
-                                setState(() {
-                                  selectedTag.value = '희망업무';
-                                  showPOSTags.value = true;
-                                  showMBTITags.value = false;
-                                  showSpecialtyags.value = false;
-                                });
-                              },
+                            Transform.scale(
+                                scale: 0.6,
+                                child: Image.asset(ImagePath.mapsearch)),
+                            SizedBox(
+                              width: 10.0,
                             ),
-                            TagKategorie(
-                              text: 'MBTI',
-                              isSelected: selectedTag == 'MBTI',
-                              onSelected: () {
-                                setState(() {
-                                  selectedTag.value = 'MBTI';
-                                  showPOSTags.value = false;
-                                  showMBTITags.value = true;
-                                  showSpecialtyags.value = false;
-                                });
-                              },
-                            ),
-                            TagKategorie(
-                              text: '특기',
-                              isSelected: selectedTag == '특기',
-                              onSelected: () {
-                                setState(() {
-                                  selectedTag.value = '특기';
-                                  showPOSTags.value = false;
-                                  showMBTITags.value = false;
-                                  showSpecialtyags.value = true;
-                                });
-                              },
-                            ),
-                            TagKategorie(
-                              text: '설정',
-                              isSelected: selectedTag == '설정',
-                              onSelected: () {
-                                setState(() {
-                                  selectedTag.value = '설정';
-                                  showPOSTags.value = false;
-                                  showMBTITags.value = false;
-                                  showSpecialtyags.value = false;
-                                });
-                              },
-                            ),
-                            TagKategorie(
-                              text: '기타',
-                              isSelected: selectedTag == '기타',
-                              onSelected: () {
-                                setState(() {
-                                  selectedTag.value = '기타';
-                                  showPOSTags.value = false;
-                                  showMBTITags.value = false;
-                                  showSpecialtyags.value = false;
-                                });
-                              },
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none, // 텍스트 필드 아래 줄 제거
+                                  hintText: '소속',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                if (showMBTITags.value) _buildMBTITags(), // 여기서 MBTI 태그를 표시합니다.
-                if (showPOSTags.value) _buildPosTags(),
-                if (showSpecialtyags.value) _buildSpecialtyTags(),
-              ],
-            );
-          }),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMBTITags() {
-    List<String> mbtiTags = [
-      'ENFP',
-      'ENTJ',
-      'ENTP',
-      'ENFJ',
-      'ESTP',
-      'ESTJ',
-      'ESFJ',
-      'ESFP',
-      'INFP',
-      'INFJ',
-      'INTP',
-      'INTJ',
-      'ISFP',
-      'ISFJ',
-      'ISTP',
-      'ISTJ',
-    ];
-
-    return Container(
-      width: 270.0,
-      child: Wrap(
-        spacing: 6.0, // 태그 사이의 가로 간격
-        runSpacing: 8, // 태그 사이의 세로 간격
-        children: mbtiTags.map((tag) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.blue, width: 0.5),
-                ),
-                child: Text(
-                  '# $tag',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 1.0, vertical: 5.0),
+                        child: Container(
+                          width: (Get.width),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 1.0),
+                            child: Obx(
+                              () => Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 15.0, // 각각의 태그 사이의 가로 간격
+                                runSpacing: 8.0, // 줄 사이의 간격
+                                children: [
+                                  TagKategorie(
+                                    text: '희망업무',
+                                    isSelected: selectedTag == '희망업무',
+                                    onSelected: () {
+                                      setState(() {
+                                        selectedTag.value = '희망업무';
+                                        showPOSTags.value = true;
+                                        showMBTITags.value = false;
+                                        showSpecialtyTags.value = false;
+                                        showPersonalityTags.value = false;
+                                        showETCTags.value = false;
+                                      });
+                                    },
+                                  ),
+                                  TagKategorie(
+                                    text: 'MBTI',
+                                    isSelected: selectedTag == 'MBTI',
+                                    onSelected: () {
+                                      setState(() {
+                                        selectedTag.value = 'MBTI';
+                                        showPOSTags.value = false;
+                                        showMBTITags.value = true;
+                                        showSpecialtyTags.value = false;
+                                        showPersonalityTags.value = false;
+                                        showETCTags.value = false;
+                                      });
+                                    },
+                                  ),
+                                  TagKategorie(
+                                    text: '특기',
+                                    isSelected: selectedTag == '특기',
+                                    onSelected: () {
+                                      setState(() {
+                                        selectedTag.value = '특기';
+                                        showPOSTags.value = false;
+                                        showMBTITags.value = false;
+                                        showSpecialtyTags.value = true;
+                                        showPersonalityTags.value = false;
+                                        showETCTags.value = false;
+                                      });
+                                    },
+                                  ),
+                                  TagKategorie(
+                                    text: '성격',
+                                    isSelected: selectedTag == '성격',
+                                    onSelected: () {
+                                      setState(() {
+                                        selectedTag.value = '성격';
+                                        showPOSTags.value = false;
+                                        showMBTITags.value = false;
+                                        showSpecialtyTags.value = false;
+                                        showPersonalityTags.value = true;
+                                        showETCTags.value = false;
+                                      });
+                                    },
+                                  ),
+                                  TagKategorie(
+                                    text: '기타',
+                                    isSelected: selectedTag == '기타',
+                                    onSelected: () {
+                                      setState(() {
+                                        selectedTag.value = '기타';
+                                        showPOSTags.value = false;
+                                        showMBTITags.value = false;
+                                        showSpecialtyTags.value = false;
+                                        showPersonalityTags.value = false;
+                                        showETCTags.value = true;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (showMBTITags.value) MBTITags(), // 여기서 MBTI 태그를 표시합니다.
+                      if (showPOSTags.value) PosTags(),
+                      if (showSpecialtyTags.value) SpecialtyTags(),
+                      if (showPersonalityTags.value) PersonalityTags(),
+                      if (showETCTags.value) ETCTags(),
+                    ],
+                  );
+                }),
               ),
             ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildPosTags() {
-    List<String> posTags = [
-      '팀장',
-      'PPT 제작',
-      '타이핑',
-      '자료조사',
-      '발표',
-      '영상편집',
-      '일러스트',
-      '디자인',
-    ];
-
-    return Container(
-      width: 270.0,
-      child: Wrap(
-        spacing: 6.0, // 태그 사이의 가로 간격
-        runSpacing: 8, // 태그 사이의 세로 간격
-        children: posTags.map((tag) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.blue, width: 0.5),
-                ),
-                child: Text(
-                  '# $tag',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Image.asset(ImagePath.cancelbutton),
                 ),
               ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildSpecialtyTags() {
-    List<String> specialtyTags = [
-      '빠른 피드백',
-      '중국어',
-      '일본어',
-      '영어',
-      '기타 외국어 능력',
-      '포토샵',
-      '일러스트',
-      '디자인',
-      '프리미어프로',
-      '에프터이펙트',
-      '코딩',
-      'C',
-      'Python',
-      'Java',
-    ];
-
-    return Container(
-      width: 270.0,
-      child: Wrap(
-        spacing: 6.0, // 태그 사이의 가로 간격
-        runSpacing: 8, // 태그 사이의 세로 간격
-        children: specialtyTags.map((tag) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.blue, width: 0.5),
-                ),
-                child: Text(
-                  '# $tag',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    // 저장버튼
+                  },
+                  child: Image.asset(ImagePath.savebutton),
                 ),
               ),
-            ),
-          );
-        }).toList(),
+            ],
+          ),
+        ],
       ),
     );
   }

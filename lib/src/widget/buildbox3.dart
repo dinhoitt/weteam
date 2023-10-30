@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/page/laddersetting.dart';
 
 class BuildBox3 extends StatelessWidget {
   const BuildBox3({super.key});
@@ -26,35 +28,40 @@ class BuildBox3 extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 4.0),
-                    child: Column(
-                      children: [
-                        Text('업무 분배가 막막하다면?'),
-                      ],
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => LadderSettingPage());
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 4.0),
+                      child: Column(
+                        children: [
+                          Text('업무 분배가 막막하다면?'),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Text(
-                      '사다리 타기',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        '사다리 타기',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20.0),
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Image.asset(
-                      ImagePath.ladder,
-                      width: 100.0,
-                      height: 100.0,
-                      fit: BoxFit.fill,
-                    ), // 사다리 이미지 여백 더 적게 변경
-                  ),
-                ],
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Image.asset(
+                        ImagePath.ladder,
+                        width: 100.0,
+                        height: 100.0,
+                        fit: BoxFit.fill,
+                      ), // 사다리 이미지 여백 더 적게 변경
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
