@@ -41,8 +41,13 @@ class _LadderGameState extends State<LadderGame> {
                           return Padding(
                             padding:
                                 EdgeInsets.symmetric(horizontal: paddingValue),
-                            child: CircleAvatar(
-                              radius: 30.0,
+                            child: Container(
+                              width: 60.0, // 2 times the radius of CircleAvatar
+                              height:
+                                  60.0, // 2 times the radius of CircleAvatar
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
                               child: ClipOval(
                                 child: Image.asset(
                                   ImagePath.exlogo,
