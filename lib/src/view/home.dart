@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/page/alert.dart';
+import 'package:weteam/src/page/notice.dart';
 import 'package:weteam/src/widget/buildbox1.dart';
 import 'package:weteam/src/widget/buildbox2.dart';
 import 'package:weteam/src/widget/buildbox3.dart';
@@ -65,7 +66,9 @@ class Home extends StatelessWidget {
                           icon: ImageIcon(
                             AssetImage(ImagePath.icon2Icon),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => Notice());
+                          },
                         ),
                       ],
                     ),

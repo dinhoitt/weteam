@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Alert extends StatelessWidget {
-  Alert({super.key});
+class Notice extends StatelessWidget {
+  Notice({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class Alert extends StatelessWidget {
         title: Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: Text(
-            '알림',
+            '공지사항',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
           ),
         ),
@@ -105,7 +105,7 @@ class Alert extends StatelessWidget {
       'date': '2023.07.19',
       'notifications': [
         {
-          'title': 'UX/UI 팀 포트폴리오 평가결과를 확인하세요!',
+          'title': '1.1 ver 업데이트 내역 안내',
           'subtitle': 'UX/UI 팀 포트폴리오를 확인하세요!\n자세한 평가결과는 아래에서 확인해 주세요.',
         },
         {
@@ -118,7 +118,7 @@ class Alert extends StatelessWidget {
       'date': '2023.07.02',
       'notifications': [
         {
-          'title': '디자인 대회 PT제작 1위 달성했습니다!',
+          'title': '🔴 정기 점검 안내',
           'subtitle': null,
         },
       ],
