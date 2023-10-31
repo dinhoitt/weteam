@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           bottomNavigationBarTheme: const BottomNavigationBarThemeData()),
       home: const App(),
       initialBinding: InitBinding(),
+      debugShowCheckedModeBanner: false, // Debug 배너 없애기
     );
   }
 }
