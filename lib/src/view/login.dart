@@ -13,6 +13,8 @@ class Login extends StatelessWidget {
           children: <Widget>[
             Image.asset(ImagePath.loginlogo),
             Image.asset(ImagePath.loginbutton),
+            Image.asset(ImagePath.logingoogle),
+            Image.asset(ImagePath.loginkakao)
           ],
         ),
       ),
