@@ -1,8 +1,5 @@
-import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/widget/profile_modify_widget/profile_modify_body.dart';
 
