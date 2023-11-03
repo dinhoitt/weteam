@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/page/login/signup.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -7,14 +9,49 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffFFFFFF),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(ImagePath.loginlogo),
-            Image.asset(ImagePath.loginbutton),
-            Image.asset(ImagePath.logingoogle),
-            Image.asset(ImagePath.loginkakao)
+          children: [
+            Image.asset(
+              ImagePath.loginlogo,
+              width: 180.0,
+              height: 180.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 60.0,
+                vertical: 10.0,
+              ),
+              child: Image.asset(ImagePath.loginbutton),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 60.0,
+                vertical: 10.0,
+              ),
+              child: Image.asset(ImagePath.logingoogle),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 60.0,
+                vertical: 10.0,
+              ),
+              child: Image.asset(ImagePath.loginkakao),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 60.0,
+                vertical: 10.0,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => SignUP());
+                },
+                child: Image.asset(ImagePath.loginsignup),
+              ),
+            ),
           ],
         ),
       ),
