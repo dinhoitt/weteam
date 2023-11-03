@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/page/login/loginpage.dart';
 import 'package:weteam/src/page/login/signup.dart';
 
 class Login extends StatelessWidget {
@@ -24,7 +25,11 @@ class Login extends StatelessWidget {
                 horizontal: 60.0,
                 vertical: 10.0,
               ),
-              child: Image.asset(ImagePath.loginbutton),
+              child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => LoginPage());
+                  },
+                  child: Image.asset(ImagePath.loginbutton)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

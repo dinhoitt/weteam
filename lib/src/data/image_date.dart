@@ -46,6 +46,7 @@ class ImagePath {
   static String get exlogo => 'assets/images/arsenallogo.png';
   static String get loginlogo => 'assets/images/login_logo.png';
   static String get loginbutton => 'assets/images/login_button.png';
+  static String get loginbutton1 => 'assets/images/login_button1.png';
   static String get logingoogle => 'assets/images/login_google.png';
   static String get loginkakao => 'assets/images/login_kakao.png';
   static String get loginsignup => 'assets/images/sign_up.png';

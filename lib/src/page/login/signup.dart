@@ -57,7 +57,7 @@ class _SignUpState extends State<SignUP> {
                   ),
                 ),
                 SizedBox(
-                  height: 24,
+                  height: 30.0,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
