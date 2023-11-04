@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weteam/src/controller/login_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class SignUP extends StatefulWidget {
@@ -12,6 +14,11 @@ class _SignUpState extends State<SignUP> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   bool _isPasswordMatched = false;
+  TextEditingController _userIdController = TextEditingController();
+  TextEditingController _nicknameController = TextEditingController();
+
+  final LoginController loginController =
+      Get.find<LoginController>(); // LoginController 인스턴스화
 
   @override
   void initState() {
@@ -72,6 +79,7 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          controller: _userIdController, // UserId 컨트롤러 연결
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
@@ -82,6 +90,10 @@ class _SignUpState extends State<SignUP> {
                               borderSide:
                                   BorderSide(width: 6.0, color: Colors.grey),
                             ),
+                            errorText: _userIdController.text.length < 5 ||
+                                    _userIdController.text.length
+                                ? '아이디는 5-11자 사이여야 합니다.'
+                                : null,
                           ),
                         ),
                       ),
@@ -90,9 +102,7 @@ class _SignUpState extends State<SignUP> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 10.0),
                           child: GestureDetector(
-                            onTap: () {
-                              // 아이디 중복확인 버튼
-                            },
+                            onTap: () {},
                             child: Image.asset(
                               ImagePath.signupcheck,
                               height: 28.0,
@@ -199,9 +209,18 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: GestureDetector(
-                          onTap: () {
-                            // 회원가입 완료 코드
+                          onTap: () async {
+                            if (_isPasswordMatched) {
+                              await loginController.signUp(
+                                _userIdController.text,
+                                _passwordController.text,
+                                _nicknameController.text,
+                              );
+                            } else {
+                              Get.snackbar('오류', '비밀번호가 일치하지 않습니다.');
+                            }
                           },
+                          //회원가입 완료 이미지 or 위젯
                           child: Image.asset(
                             ImagePath.completebutton,
                           ),
@@ -220,7 +239,9 @@ class _SignUpState extends State<SignUP> {
 
   @override
   void dispose() {
+    _userIdController.dispose();
     _passwordController.dispose();
+    _nicknameController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
   }
