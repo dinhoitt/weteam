@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weteam/src/binding/login_binding.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/page/login/loginpage.dart';
 import 'package:weteam/src/page/login/signup.dart';
@@ -52,7 +53,7 @@ class Login extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => SignUP());
+                  Get.to(() => SignUP(), binding: LoginBinding());
                 },
                 child: Image.asset(ImagePath.loginsignup),
               ),

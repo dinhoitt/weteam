@@ -23,7 +23,7 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         // JWT 처리 로직 (예: 저장)
-        var jwtToken = json.decode(response.body)['token'];
+        // var jwtToken = json.decode(response.body)['token'];
         // 저장 예시: await storage.write(key: 'jwt_token', value: jwtToken);
       } else {
         // 오류 처리

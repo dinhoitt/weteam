@@ -4,32 +4,51 @@ import 'package:weteam/src/controller/login_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class SignUP extends StatefulWidget {
-  const SignUP({super.key});
+  const SignUP({Key? key}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUP> {
+  TextEditingController _userIdController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
-  bool _isPasswordMatched = false;
-  TextEditingController _userIdController = TextEditingController();
   TextEditingController _nicknameController = TextEditingController();
-
-  final LoginController loginController =
-      Get.find<LoginController>(); // LoginController 인스턴스화
+  final LoginController loginController = Get.put(LoginController());
+  bool _isPasswordMatched = false;
+  bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
+  bool _validatePasswordComplexity(String password) {
+    String pattern =
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\$@\$!%*?&])[A-Za-z\d\$@\$!%*?&]{8,}';
+    RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(password);
+  }
 
   @override
   void initState() {
     super.initState();
-
-    _passwordController.addListener(_validatePassword);
-    _confirmPasswordController.addListener(_validatePassword);
+    _passwordController.addListener(_validateAndMatchPassword);
+    _confirmPasswordController.addListener(_validateAndMatchPassword);
   }
 
-  _validatePassword() {
-    if (_passwordController.text == _confirmPasswordController.text) {
+  void _validateAndMatchPassword() {
+    String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+
+    // 비밀번호 복잡성 검증
+    bool isPasswordComplex = _validatePasswordComplexity(password);
+
+    if (!isPasswordComplex) {
+      setState(() {
+        _isPasswordMatched = false;
+      });
+      Get.snackbar('오류', '비밀번호는 숫자, 영문자, 특수문자를 포함한 8자 이상이어야 합니다.');
+      return;
+    }
+
+    // 비밀번호 일치 검증
+    if (password == confirmPassword) {
       setState(() {
         _isPasswordMatched = true;
       });
@@ -37,6 +56,7 @@ class _SignUpState extends State<SignUP> {
       setState(() {
         _isPasswordMatched = false;
       });
+      Get.snackbar('오류', '입력한 비밀번호가 서로 일치하지 않습니다.');
     }
   }
 
@@ -90,11 +110,21 @@ class _SignUpState extends State<SignUP> {
                               borderSide:
                                   BorderSide(width: 6.0, color: Colors.grey),
                             ),
-                            errorText: _userIdController.text.length < 5 ||
-                                    _userIdController.text.length
-                                ? '아이디는 5-11자 사이여야 합니다.'
-                                : null,
+                            errorText:
+                                _hasUserIdBeenTouched && // 사용자가 타이핑을 시작 했거나
+                                        (_userIdController.text.length < 5 ||
+                                            _userIdController.text.length >
+                                                11) // 조건에 안맞을 때
+                                    ? '아이디는 5-11자 사이여야 합니다.'
+                                    : null,
                           ),
+                          onChanged: (value) {
+                            // 사용자가 타이핑을 시작하면 입력을 검증하기 시작함
+                            setState(() {
+                              _hasUserIdBeenTouched = true;
+                            });
+                          },
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                       ),
                       Align(
@@ -120,6 +150,7 @@ class _SignUpState extends State<SignUP> {
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
                           controller: _passwordController,
+                          obscureText: true, // 비밀번호를 별표처리
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
@@ -130,7 +161,11 @@ class _SignUpState extends State<SignUP> {
                               borderSide:
                                   BorderSide(width: 6.0, color: Colors.grey),
                             ),
+                            errorText: _isPasswordMatched
+                                ? null
+                                : '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.',
                           ),
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                       ),
                       SizedBox(
