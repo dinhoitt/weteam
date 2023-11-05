@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
           appBarTheme: AppBarTheme(
+            // AppBar 설정
             backgroundColor: Color(0xFFF5F5F5),
             foregroundColor: Colors.black,
             elevation: 0.0,

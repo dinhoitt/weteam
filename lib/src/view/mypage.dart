@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
+import 'package:weteam/src/page/completed_tp.dart';
 import 'package:weteam/src/page/profile_modify.dart';
 import 'package:weteam/src/widget/mypagebox1.dart';
 
@@ -67,7 +68,11 @@ class MyPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 5.0, vertical: 5.0),
-                  child: Text('종료된 팀플 확인'),
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => CompletedTP());
+                      },
+                      child: Text('종료된 팀플 확인')),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
