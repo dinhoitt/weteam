@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weteam/src/controller/login_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,6 +10,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isStayLoggedIn = false;
+  final LoginController loginController = Get.put(LoginController());
+  late String userId;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +45,9 @@ class _LoginPageState extends State<LoginPage> {
                         borderSide: BorderSide(width: 6.0, color: Colors.grey),
                       ),
                     ),
+                    onChanged: (value) {
+                      userId = value;
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -55,6 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                               BorderSide(width: 6.0, color: Colors.grey),
                         ),
                       ),
+                      onChanged: (value) {
+                        password = value;
+                      },
                     ),
                   ),
                   Image.asset(ImagePath.loginbutton1),
