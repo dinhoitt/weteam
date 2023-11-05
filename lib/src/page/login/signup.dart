@@ -91,10 +91,12 @@ class _SignUpState extends State<SignUP> {
                                   BorderSide(width: 6.0, color: Colors.grey),
                             ),
                             errorText: _userIdController.text.length < 5 ||
-                                    _userIdController.text.length
+                                    _userIdController.text.length > 11
                                 ? '아이디는 5-11자 사이여야 합니다.'
                                 : null,
                           ),
+                          autovalidateMode: AutovalidateMode
+                              .onUserInteraction, // 사용자 상호작용시 검증 활성화
                         ),
                       ),
                       Align(
