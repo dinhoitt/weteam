@@ -109,7 +109,8 @@ class _ScheduleState extends State<Schedule> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.only(
+                  left: 18.0, right: 18.0, top: 10.0, bottom: 15.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),

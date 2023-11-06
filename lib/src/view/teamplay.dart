@@ -22,13 +22,11 @@ class _TeamPlayState extends State<TeamPlay> {
       child: Scaffold(
         backgroundColor: Color(0xFFF5F5F5),
         appBar: AppBar(
-          backgroundColor: Color(0xFFF5F5F5),
           title: Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: Text(
               '진행 중인 팀플',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
                 fontSize: 20.0,
               ),
             ),

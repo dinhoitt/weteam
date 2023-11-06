@@ -114,7 +114,7 @@ class _SignUpState extends State<SignUP> {
                                 _hasUserIdBeenTouched && // 사용자가 타이핑을 시작 했거나
                                         (_userIdController.text.length < 5 ||
                                             _userIdController.text.length >
-                                                11) // 조건에 안맞을 때
+                                                11) // 조건에 안맞을 때 > 11
                                     ? '아이디는 5-11자 사이여야 합니다.'
                                     : null,
                           ),

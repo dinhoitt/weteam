@@ -37,6 +37,11 @@ flutter:
   assets:
     - assets/images/
 
+  fonts:
+  - family: AGothic14
+    fonts:
+      - asset: assets/fonts/a고딕14.ttf
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
