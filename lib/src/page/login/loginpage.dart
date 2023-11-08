@@ -4,6 +4,8 @@ import 'package:weteam/src/controller/login_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -26,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 150.0,
                   ),
                   Image.asset(
@@ -36,13 +38,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 10.0),
                       hintText: '아이디 입력',
-                      hintStyle: TextStyle(fontSize: 12.0),
+                      hintStyle: const TextStyle(fontSize: 12.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide(width: 6.0, color: Colors.grey),
+                        borderSide:
+                            const BorderSide(width: 6.0, color: Colors.grey),
                       ),
                     ),
                     onChanged: (value) {
@@ -53,14 +56,14 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 10.0),
                         hintText: '비밀번호 입력',
-                        hintStyle: TextStyle(fontSize: 12.0),
+                        hintStyle: const TextStyle(fontSize: 12.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           borderSide:
-                              BorderSide(width: 6.0, color: Colors.grey),
+                              const BorderSide(width: 6.0, color: Colors.grey),
                         ),
                       ),
                       onChanged: (value) {
@@ -74,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Checkbox(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        activeColor: Color(0xFFC86148),
+                        activeColor: const Color(0xFFC86148),
                         value: _isStayLoggedIn,
                         onChanged: (bool? value) {
                           setState(() {
@@ -82,22 +85,22 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 5.0),
                         child: Text(
                           "로그인 유지",
                           style: TextStyle(fontSize: 12.0), // 글씨 크기 조절
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 40.0,
                       ),
                       InkWell(
                         onTap: () {
                           // 아이디, 비밀번호 찾기 페이지
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30.0),
                           child: Text(
                             '아이디/비밀번호 찾기',
                             style: TextStyle(fontSize: 12.0),

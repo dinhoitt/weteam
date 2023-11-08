@@ -11,10 +11,11 @@ class SignUP extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUP> {
-  TextEditingController _userIdController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
-  TextEditingController _nicknameController = TextEditingController();
+  final TextEditingController _userIdController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  final TextEditingController _nicknameController = TextEditingController();
   final LoginController loginController = Get.put(LoginController());
   bool _isPasswordMatched = false;
   bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
@@ -75,7 +76,7 @@ class _SignUpState extends State<SignUP> {
                   padding: const EdgeInsets.only(top: 30.0),
                   child: Image.asset(ImagePath.signuplogo),
                 ),
-                Text(
+                const Text(
                   '회원가입',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -83,7 +84,7 @@ class _SignUpState extends State<SignUP> {
                     fontSize: 14.0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
                 Padding(
@@ -91,7 +92,7 @@ class _SignUpState extends State<SignUP> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         '아이디',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -101,14 +102,14 @@ class _SignUpState extends State<SignUP> {
                         child: TextFormField(
                           controller: _userIdController, // UserId 컨트롤러 연결
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             hintText: '아이디 입력(5~11자)',
-                            hintStyle: TextStyle(fontSize: 12.0),
+                            hintStyle: const TextStyle(fontSize: 12.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.0),
-                              borderSide:
-                                  BorderSide(width: 6.0, color: Colors.grey),
+                              borderSide: const BorderSide(
+                                  width: 6.0, color: Colors.grey),
                             ),
                             errorText:
                                 _hasUserIdBeenTouched && // 사용자가 타이핑을 시작 했거나
@@ -141,7 +142,7 @@ class _SignUpState extends State<SignUP> {
                           ),
                         ),
                       ),
-                      Text(
+                      const Text(
                         '비밀번호',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -152,14 +153,14 @@ class _SignUpState extends State<SignUP> {
                           controller: _passwordController,
                           obscureText: true, // 비밀번호를 별표처리
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             hintText: '비밀번호(숫자, 영문, 특수문자 조합 최소 8자)',
-                            hintStyle: TextStyle(fontSize: 12.0),
+                            hintStyle: const TextStyle(fontSize: 12.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.0),
-                              borderSide:
-                                  BorderSide(width: 6.0, color: Colors.grey),
+                              borderSide: const BorderSide(
+                                  width: 6.0, color: Colors.grey),
                             ),
                             errorText: _isPasswordMatched
                                 ? null
@@ -168,10 +169,10 @@ class _SignUpState extends State<SignUP> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20.0,
                       ),
-                      Text(
+                      const Text(
                         '비밀번호 확인',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -181,14 +182,14 @@ class _SignUpState extends State<SignUP> {
                         child: TextFormField(
                           controller: _confirmPasswordController,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             hintText: '비밀번호(숫자, 영문, 특수문자 조합 최소 8자)',
-                            hintStyle: TextStyle(fontSize: 12.0),
+                            hintStyle: const TextStyle(fontSize: 12.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.0),
-                              borderSide:
-                                  BorderSide(width: 6.0, color: Colors.grey),
+                              borderSide: const BorderSide(
+                                  width: 6.0, color: Colors.grey),
                             ),
                           ),
                         ),
@@ -198,12 +199,12 @@ class _SignUpState extends State<SignUP> {
                         child: Checkbox(
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap, //체크박스 기본 패딩 제거
-                          activeColor: Color(0xFFC86148),
+                          activeColor: const Color(0xFFC86148),
                           value: _isPasswordMatched,
                           onChanged: (bool? newValue) {},
                         ),
                       ),
-                      Text(
+                      const Text(
                         '닉네임',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -212,15 +213,15 @@ class _SignUpState extends State<SignUP> {
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
                             ),
                             hintText: '닉네임 입력',
-                            hintStyle: TextStyle(fontSize: 12.0),
+                            hintStyle: const TextStyle(fontSize: 12.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.0),
-                              borderSide:
-                                  BorderSide(width: 6.0, color: Colors.grey),
+                              borderSide: const BorderSide(
+                                  width: 6.0, color: Colors.grey),
                             ),
                           ),
                         ),

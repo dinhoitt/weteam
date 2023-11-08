@@ -53,4 +53,6 @@ class ImagePath {
   static String get signuplogo => 'assets/images/signup_logo.png';
   static String get signupcheck => 'assets/images/signup_check.png';
   static String get completebutton => 'assets/images/complete_button.png';
+  static String get addschedulebutton =>
+      'assets/images/add_schedule_button.png';
 }

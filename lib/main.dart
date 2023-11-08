@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:weteam/src/app.dart';
 import 'package:weteam/src/binding/init_binding.dart';
+import 'package:weteam/src/controller/schedule_controller.dart';
 import 'package:weteam/src/view/login.dart';
 
 void main() async {
@@ -11,6 +12,8 @@ void main() async {
   await initializeDateFormatting('ko_KR');
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
+  Get.put(CalendarController());
+
   runApp(const MyApp());
 }
 
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             // AppBar 설정
             backgroundColor: Color(0xFFF5F5F5),
             foregroundColor: Colors.black,

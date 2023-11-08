@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/model/schedule_overlay.dart';
 import 'package:weteam/src/widget/calendar.dart';
 import 'package:weteam/src/widget/datepicker.dart';
 
@@ -26,7 +27,7 @@ class _ScheduleState extends State<Schedule> {
             if (selectedDate != null) {
               setState(() {
                 this.selectedDate = selectedDate;
-                this.focusedDate = selectedDate;
+                focusedDate = selectedDate;
               });
             }
           },
@@ -41,9 +42,9 @@ class _ScheduleState extends State<Schedule> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFF5F5F5),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+          backgroundColor: const Color(0xFFF5F5F5),
+          title: const Padding(
+            padding: EdgeInsets.only(top: 15.0),
             child: Text(
               '내 스케쥴',
               style: TextStyle(
@@ -57,7 +58,7 @@ class _ScheduleState extends State<Schedule> {
         body: _body(context),
         floatingActionButton: FloatingActionButton(
           child: Image.asset(ImagePath.addschedule),
-          onPressed: () {},
+          onPressed: () => showscheduleOverlay(context),
         ),
       ),
     );
@@ -65,7 +66,7 @@ class _ScheduleState extends State<Schedule> {
 
   Widget _body(BuildContext context) {
     return Container(
-      color: Color(0xFFF5F5F5),
+      color: const Color(0xFFF5F5F5),
       child: Column(
         children: [
           Padding(
@@ -84,12 +85,12 @@ class _ScheduleState extends State<Schedule> {
                           children: [
                             Text(
                               '${selectedDate.year}.${selectedDate.month}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
                               ),
                             ),
-                            SizedBox(width: 8.0),
+                            const SizedBox(width: 8.0),
                             Image.asset(ImagePath.downarrow),
                           ],
                         ),
@@ -99,7 +100,7 @@ class _ScheduleState extends State<Schedule> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 13.0),
-                  child: Container(
+                  child: SizedBox(
                     height: 35.0,
                     child: Image.asset(ImagePath.sharetext),
                   ),
@@ -120,7 +121,7 @@ class _ScheduleState extends State<Schedule> {
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 4.0,
                       spreadRadius: 2.0,
-                      offset: Offset(0, 0),
+                      offset: const Offset(0, 0),
                     ),
                   ],
                 ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:weteam/src/controller/schedule_controller.dart';
+import 'package:weteam/src/model/event.dart';
 
 class SimpleCalendar extends StatefulWidget {
   final CalendarFormat format;
@@ -7,7 +10,7 @@ class SimpleCalendar extends StatefulWidget {
   final DateTime? selectedDay;
   final void Function(DateTime, DateTime) onDaySelected;
 
-  SimpleCalendar({
+  const SimpleCalendar({
     Key? key,
     required this.format,
     required this.focusedDay,
@@ -24,45 +27,56 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
   Widget build(BuildContext context) {
     return TableCalendar(
       calendarBuilders: CalendarBuilders(
+        markerBuilder: (context, date, _) {
+          var controller = Get.find<CalendarController>();
+          var events = controller.getEventsForDay(date);
+
+          if (events.isNotEmpty) {
+            return Positioned(
+              child: _buildEventsMarker(date, events),
+            );
+          }
+          return null;
+        },
         dowBuilder: (context, day) {
           switch (day.weekday) {
             case 1:
-              return Center(
+              return const Center(
                 child: Text(
                   '월',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               );
             case 2:
-              return Center(
+              return const Center(
                 child: Text(
                   '화',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               );
             case 3:
-              return Center(
+              return const Center(
                 child: Text(
                   '수',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               );
             case 4:
-              return Center(
+              return const Center(
                 child: Text(
                   '목',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               );
             case 5:
-              return Center(
+              return const Center(
                 child: Text(
                   '금',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               );
             case 6:
-              return Center(
+              return const Center(
                 child: Text(
                   '토',
                   style: TextStyle(
@@ -70,7 +84,7 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
                 ),
               );
             case 7:
-              return Center(
+              return const Center(
                 child: Text(
                   '일',
                   style:
@@ -86,14 +100,14 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
             return Center(
               child: Text(
                 day.day.toString(),
-                style: TextStyle(color: Colors.blue),
+                style: const TextStyle(color: Colors.blue),
               ),
             );
           } else if (day.weekday == DateTime.sunday) {
             return Center(
               child: Text(
                 day.day.toString(),
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             );
           } else {
@@ -116,10 +130,10 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
         widget.onDaySelected(selectedDay, newFocusedDay);
       }),
       headerVisible: false,
-      daysOfWeekStyle: DaysOfWeekStyle(
+      daysOfWeekStyle: const DaysOfWeekStyle(
         weekendStyle: TextStyle(color: Colors.red),
       ),
-      calendarStyle: CalendarStyle(
+      calendarStyle: const CalendarStyle(
         defaultTextStyle: TextStyle(color: Colors.black),
         holidayTextStyle: TextStyle(color: Colors.red), // 공휴일 텍스트 스타일
         todayDecoration: BoxDecoration(
@@ -136,4 +150,25 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
       },
     );
   }
+}
+
+Widget _buildEventsMarker(DateTime date, List<Event> events) {
+  return AnimatedContainer(
+    duration: const Duration(milliseconds: 300),
+    decoration: const BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.blue,
+    ),
+    width: 16.0,
+    height: 16.0,
+    child: Center(
+      child: Text(
+        '${events.length}',
+        style: const TextStyle().copyWith(
+          color: Colors.white,
+          fontSize: 12.0,
+        ),
+      ),
+    ),
+  );
 }
