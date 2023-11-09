@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/page/add_schedule.dart';
 
 void showscheduleOverlay(BuildContext context) {
   showModalBottomSheet(
@@ -11,7 +13,12 @@ void showscheduleOverlay(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(ImagePath.addschedulebutton),
+            GestureDetector(
+              onTap: () {
+                Get.to(() => AddSchedule());
+              },
+              child: Image.asset(ImagePath.addschedulebutton),
+            ),
           ],
         ),
       );

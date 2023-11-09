@@ -12,7 +12,7 @@ void main() async {
   await initializeDateFormatting('ko_KR');
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
-  Get.put(CalendarController());
+  Get.put(CalendarController()); // 일정 추가 컨트롤러
 
   runApp(const MyApp());
 }
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             elevation: 0.0,
             titleTextStyle: TextStyle(
               fontFamily: 'AGothic14',
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
           ),

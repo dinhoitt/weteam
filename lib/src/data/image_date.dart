@@ -55,4 +55,10 @@ class ImagePath {
   static String get completebutton => 'assets/images/complete_button.png';
   static String get addschedulebutton =>
       'assets/images/add_schedule_button.png';
+  static String get colorbutton => 'assets/images/choice_color.png';
+  static String get iconlocation => 'assets/images/location_icon.png';
+  static String get iconhashtag => 'assets/images/hashtag_icon.png';
+  static String get iconalarm => 'assets/images/alarm_icon.png';
+  static String get iconrecycle => 'assets/images/recycle_icon.png';
+  static String get iconmemo => 'assets/images/memo_icon.png';
 }
