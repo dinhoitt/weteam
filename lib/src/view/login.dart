@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/binding/login_binding.dart';
+import 'package:weteam/src/binding/signup_binding.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/page/login/loginpage.dart';
 import 'package:weteam/src/page/login/signup.dart';

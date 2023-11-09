@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData()),
-      // home: const Login(),
-      home: const App(),
+      home: const Login(),
+      // home: const App(),
       initialBinding: InitBinding(),
       debugShowCheckedModeBanner: false, // Debug 배너 없애기
     );

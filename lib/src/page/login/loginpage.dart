@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/login_controller.dart';
+import 'package:weteam/src/controller/account_controlelr.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isStayLoggedIn = false;
-  final LoginController loginController = Get.put(LoginController());
+  final AccountController loginController = Get.put(AccountController());
   late String userId;
   late String password;
 
@@ -69,9 +69,12 @@ class _LoginPageState extends State<LoginPage> {
                       onChanged: (value) {
                         password = value;
                       },
+                      obscureText: true,
                     ),
                   ),
-                  Image.asset(ImagePath.loginbutton1),
+                  GestureDetector(
+                    child: Image.asset(ImagePath.loginbutton1),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

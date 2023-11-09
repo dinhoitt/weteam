@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/login_controller.dart';
+import 'package:weteam/src/controller/account_controlelr.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class SignUP extends StatefulWidget {
@@ -16,7 +16,7 @@ class _SignUpState extends State<SignUP> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
-  final LoginController loginController = Get.put(LoginController());
+  final AccountController loginController = Get.put(AccountController());
   bool _isPasswordMatched = false;
   bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
   bool _validatePasswordComplexity(String password) {
