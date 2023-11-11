@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weteam/src/app.dart';
 import 'package:weteam/src/controller/account_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
@@ -73,6 +74,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   GestureDetector(
+                    onTap: () {
+                      Get.offAll(() => App());
+                    },
                     child: Image.asset(ImagePath.loginbutton1),
                   ),
                   Row(

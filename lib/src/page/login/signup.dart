@@ -20,9 +20,10 @@ class _SignUpState extends State<SignUP> {
   final AccountController loginController = Get.put(AccountController());
   bool _isPasswordMatched = false;
   bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
+  bool _hasPasswordBeenTouched = false; // 비밀번호를 입력하기 시작 했을 때
   bool _validatePasswordComplexity(String password) {
     String pattern =
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\$@\$!%*?&])[A-Za-z\d\$@\$!%*?&]{8,}';
+        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[\$@\$!%*?&])[A-Za-z\d\$@\$!%*?&]{8,}';
     RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(password);
   }
@@ -40,15 +41,11 @@ class _SignUpState extends State<SignUP> {
 
     // 비밀번호 복잡성 검증
     bool isPasswordComplex = _validatePasswordComplexity(password);
-
     if (!isPasswordComplex) {
       setState(() {
-        _isPasswordMatched = false;
+        _isPasswordMatched = isPasswordComplex && password == confirmPassword;
       });
-      Get.snackbar('오류', '비밀번호는 숫자, 영문자, 특수문자를 포함한 8자 이상이어야 합니다.');
-      return;
     }
-
     // 비밀번호 일치 검증
     if (password == confirmPassword) {
       setState(() {
@@ -58,7 +55,6 @@ class _SignUpState extends State<SignUP> {
       setState(() {
         _isPasswordMatched = false;
       });
-      Get.snackbar('오류', '입력한 비밀번호가 서로 일치하지 않습니다.');
     }
   }
 
@@ -157,6 +153,14 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          onChanged: (value) {
+                            if (!_hasPasswordBeenTouched) {
+                              setState(() {
+                                _hasPasswordBeenTouched =
+                                    true; // 사용자가 입력을 시작했음을 표시
+                              });
+                            }
+                          },
                           controller: _passwordController,
                           obscureText: true, // 비밀번호를 별표처리
                           decoration: InputDecoration(
@@ -169,11 +173,22 @@ class _SignUpState extends State<SignUP> {
                               borderSide: const BorderSide(
                                   width: 6.0, color: Colors.grey),
                             ),
-                            errorText: _isPasswordMatched
-                                ? '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.'
-                                : null,
+                            errorText:
+                                _hasPasswordBeenTouched && !!_isPasswordMatched
+                                    ? '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.'
+                                    : null,
                           ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (!_validatePasswordComplexity(value ?? "")) {
+                              return '비밀번호는 숫자, 영문자, 특수문자를 포함한 8자 이상이어야 합니다.';
+                            }
+                            if (_passwordController.text !=
+                                _confirmPasswordController.text) {
+                              return '입력한 비밀번호가 서로 일치하지 않습니다.';
+                            }
+                            return null; // 에러가 없을 경우 null 반환
+                          },
+                          autovalidateMode: AutovalidateMode.disabled,
                         ),
                       ),
                       const SizedBox(
@@ -212,9 +227,34 @@ class _SignUpState extends State<SignUP> {
                         ),
                       ),
                       const Text(
-                        '닉네임',
+                        '이름',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
+                            hintText: '이름 입력',
+                            hintStyle: const TextStyle(fontSize: 12.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              borderSide: const BorderSide(
+                                  width: 6.0, color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12.0),
+                        child: const Text(
+                          '닉네임',
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),

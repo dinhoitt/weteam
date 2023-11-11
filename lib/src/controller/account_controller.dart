@@ -40,8 +40,17 @@ class AccountController extends GetxController {
 
   Future<void> checkUserIdAvailability(String userId) async {
     try {
-      isUserIdAvailable.value =
-          await _apiService.checkUsernameAvailability(userId);
+      bool available = await _apiService.checkUsernameAvailability(userId);
+      isUserIdAvailable.value = available;
+
+      if (available) {
+        // 아이디가 사용 가능한 경우
+        Get.snackbar('성공', '아이디를 사용할 수 있습니다');
+      } else {
+        // 아이디가 이미 사용 중인 경우
+        Get.snackbar('오류', '이미 사용 중인 아이디입니다',
+            snackPosition: SnackPosition.BOTTOM);
+      }
     } catch (e) {
       // 오류 처리
       Get.snackbar('Error', '사용자 이름 중복 확인 중 오류 발생: $e');
