@@ -28,6 +28,7 @@ class _TeamPlayState extends State<TeamPlay> {
               '진행 중인 팀플',
               style: TextStyle(
                 fontSize: 20.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

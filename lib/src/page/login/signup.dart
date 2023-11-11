@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/account_controlelr.dart';
+import 'package:weteam/src/controller/account_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/page/login/completed_signup.dart';
 
 class SignUP extends StatefulWidget {
   const SignUP({Key? key}) : super(key: key);
@@ -133,7 +134,13 @@ class _SignUpState extends State<SignUP> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 10.0),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              // ID 중복확인
+                              final userId = _userIdController.text;
+                              if (userId.isNotEmpty) {
+                                loginController.checkUserIdAvailability(userId);
+                              }
+                            },
                             child: Image.asset(
                               ImagePath.signupcheck,
                               height: 28.0,
@@ -163,8 +170,8 @@ class _SignUpState extends State<SignUP> {
                                   width: 6.0, color: Colors.grey),
                             ),
                             errorText: _isPasswordMatched
-                                ? null
-                                : '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.',
+                                ? '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.'
+                                : null,
                           ),
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
@@ -212,6 +219,7 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          controller: _nicknameController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
@@ -232,7 +240,12 @@ class _SignUpState extends State<SignUP> {
                           padding: const EdgeInsets.only(top: 5.0, right: 10.0),
                           child: GestureDetector(
                             onTap: () {
-                              // 닉네임 중복확인 버튼
+                              // 닉네임 중복확인
+                              final nickname = _nicknameController.text;
+                              if (nickname.isNotEmpty) {
+                                loginController
+                                    .checkNicknameAvailability(nickname);
+                              }
                             },
                             child: Image.asset(
                               ImagePath.signupcheck,
@@ -246,15 +259,17 @@ class _SignUpState extends State<SignUP> {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: GestureDetector(
                           onTap: () async {
-                            if (_isPasswordMatched) {
-                              await loginController.signUp(
-                                _userIdController.text,
-                                _passwordController.text,
-                                _nicknameController.text,
-                              );
-                            } else {
-                              Get.snackbar('오류', '비밀번호가 일치하지 않습니다.');
-                            }
+                            Get.to(() => CompletedSignUp());
+                            // bool signupSuccess = await loginController.signUp(
+                            //   _userIdController.text,
+                            //   _passwordController.text,
+                            //   _nicknameController.text,
+                            // );
+                            // if (signupSuccess) {
+                            //   Get.to(() => CompletedSignUp());
+                            // } else {
+                            //   Get.snackbar('오류', '비밀번호가 일치하지 않습니다.');
+                            // }
                           },
                           //회원가입 완료 이미지 or 위젯
                           child: Image.asset(

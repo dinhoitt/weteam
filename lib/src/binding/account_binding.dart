@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/account_controlelr.dart';
+import 'package:weteam/src/controller/account_controller.dart';
 
 class LoginBinding extends Bindings {
   @override

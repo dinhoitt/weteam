@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/account_controlelr.dart';
+import 'package:weteam/src/controller/account_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class LoginPage extends StatefulWidget {
