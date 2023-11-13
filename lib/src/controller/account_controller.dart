@@ -9,7 +9,11 @@ class AccountController extends GetxController {
   final ApiService _apiService = ApiService();
 
   // 회원가입 메서드
-  Future<bool> signUp(String userId, String password, String nickname) async {
+  Future<bool> signUp(
+    String userId,
+    String password,
+    String nickname,
+  ) async {
     isLoading.value = true;
     try {
       var newUser =
@@ -69,15 +73,6 @@ class AccountController extends GetxController {
       } else {
         //닉네임이 이미 사용 중인 경우
         Get.snackbar('오류', '이미 사용 중인 닉네임입니다.');
-      }
-      bool available = await _apiService.checkNicknameAvailability(nickname);
-      isNicknameAvailable.value = available;
-      if (available) {
-        // 닉네임이 사용 가능한 경우
-        Get.snackbar('성공', '닉네임을 사용할 수 있습니다!');
-      } else {
-        // 닉네임이 이미 사용 중인 경우
-        Get.snackbar('오류', '이미 사용 중인 닉네임입니다');
       }
     } catch (e) {
       // 오류 처리
