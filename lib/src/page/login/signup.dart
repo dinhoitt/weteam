@@ -18,6 +18,7 @@ class _SignUpState extends State<SignUP> {
       TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
   final AccountController loginController = Get.put(AccountController());
+  final TextEditingController _nameController = TextEditingController();
   bool _isPasswordMatched = false;
   bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
   bool _hasPasswordBeenTouched = false; // 비밀번호를 입력하기 시작 했을 때
@@ -27,6 +28,8 @@ class _SignUpState extends State<SignUP> {
     RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(password);
   }
+
+  bool _isFormValid = false; // Form 검증 상태 변수 추가
 
   @override
   void initState() {
@@ -56,6 +59,26 @@ class _SignUpState extends State<SignUP> {
         _isPasswordMatched = false;
       });
     }
+  }
+
+  void _validateForm() {
+    print('Form is valid: $_isFormValid'); // _isFormValid가 true인지 확인
+    bool isUserIdValid = _userIdController.text.length >= 5 &&
+        _userIdController.text.length <= 11;
+    bool isPasswordComplex =
+        _validatePasswordComplexity(_passwordController.text);
+    bool isPasswordMatched =
+        _passwordController.text == _confirmPasswordController.text;
+    bool isNicknameValid = _nicknameController.text.isNotEmpty;
+    bool isNameValid = _nameController.text.isNotEmpty;
+
+    setState(() {
+      _isFormValid = isUserIdValid &&
+          isPasswordComplex &&
+          isPasswordMatched &&
+          isNicknameValid &&
+          isNameValid; // 이 상태도 업데이트합니다.
+    });
   }
 
   @override
@@ -117,6 +140,7 @@ class _SignUpState extends State<SignUP> {
                                     : null,
                           ),
                           onChanged: (value) {
+                            _validateForm();
                             // 사용자가 타이핑을 시작하면 입력을 검증하기 시작함
                             setState(() {
                               _hasUserIdBeenTouched = true;
@@ -155,6 +179,7 @@ class _SignUpState extends State<SignUP> {
                         child: TextFormField(
                           onChanged: (value) {
                             if (!_hasPasswordBeenTouched) {
+                              _validateForm();
                               setState(() {
                                 _hasPasswordBeenTouched =
                                     true; // 사용자가 입력을 시작했음을 표시
@@ -162,7 +187,7 @@ class _SignUpState extends State<SignUP> {
                             }
                           },
                           controller: _passwordController,
-                          obscureText: true, // 비밀번호를 별표처리
+                          // obscureText: true, // 비밀번호를 별표처리
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
@@ -174,7 +199,7 @@ class _SignUpState extends State<SignUP> {
                                   width: 6.0, color: Colors.grey),
                             ),
                             errorText:
-                                _hasPasswordBeenTouched && !!_isPasswordMatched
+                                _hasPasswordBeenTouched && !_isPasswordMatched
                                     ? '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.'
                                     : null,
                           ),
@@ -234,6 +259,13 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          controller: _nameController,
+                          onChanged: (value) {
+                            if (!_hasPasswordBeenTouched) {
+                              _validateForm();
+                              setState(() {});
+                            }
+                          },
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
@@ -248,9 +280,9 @@ class _SignUpState extends State<SignUP> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
-                        child: const Text(
+                      const Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: Text(
                           '닉네임',
                           style: TextStyle(
                               fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -259,6 +291,10 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          onChanged: (value) {
+                            _validateForm();
+                            setState(() {});
+                          },
                           controller: _nicknameController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
@@ -298,22 +334,25 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: GestureDetector(
-                          onTap: () async {
-                            Get.to(() => CompletedSignUp());
-                            // bool signupSuccess = await loginController.signUp(
-                            //   _userIdController.text,
-                            //   _passwordController.text,
-                            //   _nicknameController.text,
-                            // );
-                            // if (signupSuccess) {
-                            //   Get.to(() => CompletedSignUp());
-                            // } else {
-                            //   Get.snackbar('오류', '비밀번호가 일치하지 않습니다.');
-                            // }
-                          },
-                          //회원가입 완료 이미지 or 위젯
+                          onTap: _isFormValid
+                              ? () async {
+                                  bool signupSuccess =
+                                      await loginController.signUp(
+                                    _userIdController.text,
+                                    _passwordController.text,
+                                    _nicknameController.text,
+                                  );
+                                  if (signupSuccess) {
+                                    Get.to(() => const CompletedSignUp());
+                                  } else {
+                                    Get.snackbar('오류', '회원가입에 실패하였습니다.');
+                                  }
+                                }
+                              : null, // _isFormValid가 false일 때는 onTap을 null로 설정
                           child: Image.asset(
-                            ImagePath.completebutton,
+                            _isFormValid
+                                ? ImagePath.completedbutton2
+                                : ImagePath.completebutton,
                           ),
                         ),
                       ),

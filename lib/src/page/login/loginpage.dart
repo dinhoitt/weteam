@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.offAll(() => App());
+                      Get.offAll(() => const App());
                     },
                     child: Image.asset(ImagePath.loginbutton1),
                   ),

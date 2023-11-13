@@ -14,8 +14,6 @@ class _AddScheduleState extends State<AddSchedule> {
   DateTime selectedDate = DateTime.now();
   DateTime focusedDate = DateTime.now();
 
-  final GlobalKey _calendarKey = GlobalKey();
-
   Future<void> _selectDate() async {
     await showDialog(
       context: context,
@@ -41,7 +39,7 @@ class _AddScheduleState extends State<AddSchedule> {
       child: Scaffold(
         resizeToAvoidBottomInset: false, //바텀버튼 키보드 동작 시 안올라오도록
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             '내 스케쥴 추가',
             style: TextStyle(
               fontSize: 20.0,
@@ -50,7 +48,7 @@ class _AddScheduleState extends State<AddSchedule> {
           centerTitle: true,
         ),
         body: Container(
-          color: Color(0xFFF5F5F5),
+          color: const Color(0xFFF5F5F5),
           child: _body(),
         ),
         bottomNavigationBar: _bottomButtons(),
@@ -101,7 +99,7 @@ class _AddScheduleState extends State<AddSchedule> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -116,7 +114,7 @@ class _AddScheduleState extends State<AddSchedule> {
                                 horizontal: 12.0, vertical: 12.0),
                             child: Row(
                               children: <Widget>[
-                                Expanded(
+                                const Expanded(
                                   child: TextField(
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -130,10 +128,10 @@ class _AddScheduleState extends State<AddSchedule> {
                               ],
                             ),
                           ),
-                          Text('시작'),
-                          Text('종료'),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          const Text('시작'),
+                          const Text('종료'),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: Divider(
                               thickness: 1.0,
                             ),
@@ -187,9 +185,9 @@ class _AddScheduleState extends State<AddSchedule> {
     return Row(
       children: [
         Image.asset(ImagePath.iconlocation),
-        Expanded(
+        const Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: '위치',
@@ -207,9 +205,9 @@ class _AddScheduleState extends State<AddSchedule> {
     return Row(
       children: [
         Image.asset(ImagePath.iconhashtag),
-        Expanded(
+        const Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: '해시태그',
@@ -227,9 +225,9 @@ class _AddScheduleState extends State<AddSchedule> {
     return Row(
       children: [
         Image.asset(ImagePath.iconalarm),
-        Expanded(
+        const Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: EdgeInsets.symmetric(horizontal: 12.0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: '알람',
@@ -247,9 +245,9 @@ class _AddScheduleState extends State<AddSchedule> {
     return Row(
       children: [
         Image.asset(ImagePath.iconrecycle),
-        Expanded(
+        const Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: '반복 안 함',
@@ -271,9 +269,9 @@ class _AddScheduleState extends State<AddSchedule> {
           padding: const EdgeInsets.only(top: 14.0),
           child: Image.asset(ImagePath.iconmemo),
         ),
-        Expanded(
+        const Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: EdgeInsets.symmetric(horizontal: 12.0),
             child: TextField(
               minLines: 12,
               maxLines: null,
