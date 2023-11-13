@@ -17,7 +17,8 @@ class _SignUpState extends State<SignUP> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
-  final AccountController loginController = Get.put(AccountController());
+  final TextEditingController _nameController = TextEditingController();
+  final AccountController accountController = Get.find<AccountController>();
   bool _isPasswordMatched = false;
   bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
   bool _hasPasswordBeenTouched = false; // 비밀번호를 입력하기 시작 했을 때
@@ -56,6 +57,30 @@ class _SignUpState extends State<SignUP> {
         _isPasswordMatched = false;
       });
     }
+  }
+
+  bool _isFormValid = false; // Form 검증 상태 변수 추가
+
+  void _validateForm() {
+    bool isUserIdValid = _userIdController.text.length >= 5 &&
+        _userIdController.text.length <= 11;
+    bool isPasswordComplex =
+        _validatePasswordComplexity(_passwordController.text);
+    bool isPasswordMatched =
+        _passwordController.text == _confirmPasswordController.text;
+    // 이름 필드가 채워져 있는지 검사합니다.
+    bool isNameValid = _nameController.text.isNotEmpty;
+    bool isUserIdAvailable = accountController.isUserIdAvailable.value;
+    bool isNicknameAvailable = accountController.isNicknameAvailable.value;
+
+    setState(() {
+      _isFormValid = isUserIdValid &&
+          isPasswordComplex &&
+          isPasswordMatched &&
+          isNameValid &&
+          isUserIdAvailable &&
+          isNicknameAvailable;
+    });
   }
 
   @override
@@ -134,7 +159,9 @@ class _SignUpState extends State<SignUP> {
                               // ID 중복확인
                               final userId = _userIdController.text;
                               if (userId.isNotEmpty) {
-                                loginController.checkUserIdAvailability(userId);
+                                accountController
+                                    .checkUserIdAvailability(userId);
+                                _validateForm();
                               }
                             },
                             child: Image.asset(
@@ -159,6 +186,7 @@ class _SignUpState extends State<SignUP> {
                                 _hasPasswordBeenTouched =
                                     true; // 사용자가 입력을 시작했음을 표시
                               });
+                              _validateForm();
                             }
                           },
                           controller: _passwordController,
@@ -174,7 +202,7 @@ class _SignUpState extends State<SignUP> {
                                   width: 6.0, color: Colors.grey),
                             ),
                             errorText:
-                                _hasPasswordBeenTouched && !!_isPasswordMatched
+                                _hasPasswordBeenTouched && !_isPasswordMatched
                                     ? '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.'
                                     : null,
                           ),
@@ -202,6 +230,9 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          onChanged: (value) {
+                            _validateForm();
+                          },
                           controller: _confirmPasswordController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
@@ -234,6 +265,10 @@ class _SignUpState extends State<SignUP> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextFormField(
+                          onChanged: (value) {
+                            _validateForm();
+                          },
+                          controller: _nameController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
@@ -283,9 +318,10 @@ class _SignUpState extends State<SignUP> {
                               // 닉네임 중복확인
                               final nickname = _nicknameController.text;
                               if (nickname.isNotEmpty) {
-                                loginController
+                                accountController
                                     .checkNicknameAvailability(nickname);
                               }
+                              _validateForm();
                             },
                             child: Image.asset(
                               ImagePath.signupcheck,
@@ -313,7 +349,9 @@ class _SignUpState extends State<SignUP> {
                           },
                           //회원가입 완료 이미지 or 위젯
                           child: Image.asset(
-                            ImagePath.completebutton,
+                            _isFormValid
+                                ? ImagePath.completedbutton2
+                                : ImagePath.completebutton,
                           ),
                         ),
                       ),

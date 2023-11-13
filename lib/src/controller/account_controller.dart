@@ -45,7 +45,7 @@ class AccountController extends GetxController {
 
       if (available) {
         // 아이디가 사용 가능한 경우
-        Get.snackbar('성공', '아이디를 사용할 수 있습니다');
+        Get.snackbar('성공', '아이디를 사용할 수 있습니다!');
       } else {
         // 아이디가 이미 사용 중인 경우
         Get.snackbar('오류', '이미 사용 중인 아이디입니다',
@@ -59,8 +59,16 @@ class AccountController extends GetxController {
 
   Future<void> checkNicknameAvailability(String nickname) async {
     try {
-      isNicknameAvailable.value =
-          await _apiService.checkNicknameAvailability(nickname);
+      bool available = await _apiService.checkNicknameAvailability(nickname);
+      isNicknameAvailable.value = available;
+
+      if (available) {
+        //닉네임이 사용 가능한 경우
+        Get.snackbar('성공', '닉네임을 사용할 수 있습니다');
+      } else {
+        //닉네임이 이미 사용 중인 경우
+        Get.snackbar('오류', '이미 사용 중인 닉네임입니다.');
+      }
     } catch (e) {
       // 오류 처리
       Get.snackbar('Error', '닉네임 중복 확인 중 오류 발생: $e');
