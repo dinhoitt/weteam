@@ -29,6 +29,8 @@ class _SignUpState extends State<SignUP> {
     return regExp.hasMatch(password);
   }
 
+  bool _isPasswordComplex = false;
+
   @override
   void initState() {
     super.initState();
@@ -42,11 +44,12 @@ class _SignUpState extends State<SignUP> {
 
     // 비밀번호 복잡성 검증
     bool isPasswordComplex = _validatePasswordComplexity(password);
-    if (!isPasswordComplex) {
-      setState(() {
-        _isPasswordMatched = isPasswordComplex && password == confirmPassword;
-      });
-    }
+
+    setState(() {
+      _isPasswordMatched = isPasswordComplex && password == confirmPassword;
+      _isPasswordComplex = isPasswordComplex;
+    });
+
     // 비밀번호 일치 검증
     if (password == confirmPassword) {
       setState(() {
@@ -210,7 +213,7 @@ class _SignUpState extends State<SignUP> {
                                     width: 6.0, color: Colors.grey),
                               ),
                               errorText:
-                                  _hasPasswordBeenTouched && !_isPasswordMatched
+                                  _hasPasswordBeenTouched && !_isPasswordComplex
                                       ? '비밀번호는 8자 이상이며 숫자, 영문, 특수문자를 포함해야 합니다.'
                                       : null,
                             ),

@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _isStayLoggedIn = false;
   final AccountController loginController = Get.put(AccountController());
-  late String userId;
+  late String uId;
   late String password;
 
   @override
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     onChanged: (value) {
-                      userId = value;
+                      uId = value;
                     },
                   ),
                   Padding(
