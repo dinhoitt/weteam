@@ -18,7 +18,7 @@ class AccountController extends GetxController {
     isLoading.value = true;
     try {
       var newUser = User(
-          uid: uId, username: username, password: password, nickname: nickname);
+          uid: uId, password: password, username: username, nickname: nickname);
       await _apiService.signUp(newUser);
       Get.snackbar('Success', '회원가입 성공');
       return true;
