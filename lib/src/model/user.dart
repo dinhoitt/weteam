@@ -1,4 +1,5 @@
 class User {
+  late String uid;
   late String username;
   late String password;
   late String nickname;
@@ -6,6 +7,7 @@ class User {
   int verifyNickname;
 
   User({
+    required this.uid,
     required this.username,
     required this.password,
     required this.nickname,
@@ -15,6 +17,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
+      uid: json['uid'],
       username: json['username'],
       password: json['password'],
       nickname: json['nickname'],
@@ -24,6 +27,7 @@ class User {
   }
 
   Map<String, dynamic> toJson() => {
+        'uid': uid,
         'username': username,
         'password': password,
         'nickname': nickname,

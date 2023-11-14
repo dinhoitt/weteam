@@ -4,20 +4,21 @@ import 'package:weteam/src/util/api_service.dart';
 
 class AccountController extends GetxController {
   final isLoading = false.obs;
-  final isUserIdAvailable = false.obs;
+  final isUIdAvailable = false.obs;
   final isNicknameAvailable = false.obs;
   final ApiService _apiService = ApiService();
 
   // 회원가입 메서드
   Future<bool> signUp(
-    String userId,
+    String uId,
+    String username,
     String password,
     String nickname,
   ) async {
     isLoading.value = true;
     try {
-      var newUser =
-          User(username: userId, password: password, nickname: nickname);
+      var newUser = User(
+          uid: uId, username: username, password: password, nickname: nickname);
       await _apiService.signUp(newUser);
       Get.snackbar('Success', '회원가입 성공');
       return true;
@@ -30,10 +31,10 @@ class AccountController extends GetxController {
   }
 
   // 로그인 메서드 추가
-  Future<void> login(String username, String password) async {
+  Future<void> login(String uId, String password) async {
     isLoading.value = true;
     try {
-      await _apiService.login(username, password);
+      await _apiService.login(uId, password);
       Get.snackbar('Success', '로그인 성공');
     } catch (e) {
       Get.snackbar('Error', '로그인 실패: $e');
@@ -42,10 +43,10 @@ class AccountController extends GetxController {
     }
   }
 
-  Future<void> checkUserIdAvailability(String userId) async {
+  Future<void> checkUIdAvailability(String uId) async {
     try {
-      bool available = await _apiService.checkUsernameAvailability(userId);
-      isUserIdAvailable.value = available;
+      bool available = await _apiService.checkUsernameAvailability(uId);
+      isUIdAvailable.value = available;
 
       if (available) {
         // 아이디가 사용 가능한 경우

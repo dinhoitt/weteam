@@ -12,7 +12,7 @@ class SignUP extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUP> {
-  final TextEditingController _userIdController = TextEditingController();
+  final TextEditingController _uIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -20,7 +20,7 @@ class _SignUpState extends State<SignUP> {
   final TextEditingController _nameController = TextEditingController();
   final AccountController accountController = Get.find<AccountController>();
   bool _isPasswordMatched = false;
-  bool _hasUserIdBeenTouched = false; // id를 입력하기 시작 했을 때
+  bool _hasUIdBeenTouched = false; // id를 입력하기 시작 했을 때
   bool _hasPasswordBeenTouched = false; // 비밀번호를 입력하기 시작 했을 때
   bool _validatePasswordComplexity(String password) {
     String pattern =
@@ -62,22 +62,22 @@ class _SignUpState extends State<SignUP> {
   bool _isFormValid = false; // Form 검증 상태 변수 추가
 
   void _validateForm() {
-    bool isUserIdValid = _userIdController.text.length >= 5 &&
-        _userIdController.text.length <= 11;
+    bool isUIdValid =
+        _uIdController.text.length >= 5 && _uIdController.text.length <= 11;
     bool isPasswordComplex =
         _validatePasswordComplexity(_passwordController.text);
     bool isPasswordMatched =
         _passwordController.text == _confirmPasswordController.text;
     bool isNameValid = _nameController.text.isNotEmpty;
-    bool isUserIdAvailable = accountController.isUserIdAvailable.value;
+    bool isUIdAvailable = accountController.isUIdAvailable.value;
     bool isNicknameAvailable = accountController.isNicknameAvailable.value;
 
     setState(() {
-      _isFormValid = isUserIdValid &&
+      _isFormValid = isUIdValid &&
           isPasswordComplex &&
           isPasswordMatched &&
           isNameValid &&
-          isUserIdAvailable &&
+          isUIdAvailable &&
           isNicknameAvailable;
     });
   }
@@ -128,7 +128,7 @@ class _SignUpState extends State<SignUP> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: TextFormField(
-                            controller: _userIdController, // UserId 컨트롤러 연결
+                            controller: _uIdController, // UserId 컨트롤러 연결
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10.0),
@@ -140,9 +140,9 @@ class _SignUpState extends State<SignUP> {
                                     width: 6.0, color: Colors.grey),
                               ),
                               errorText:
-                                  _hasUserIdBeenTouched && // 사용자가 타이핑을 시작 했거나
-                                          (_userIdController.text.length < 5 ||
-                                              _userIdController.text.length >
+                                  _hasUIdBeenTouched && // 사용자가 타이핑을 시작 했거나
+                                          (_uIdController.text.length < 5 ||
+                                              _uIdController.text.length >
                                                   11) // 조건에 안맞을 때 > 11
                                       ? '아이디는 5-11자 사이여야 합니다.'
                                       : null,
@@ -151,7 +151,7 @@ class _SignUpState extends State<SignUP> {
                               _validateForm();
                               // 사용자가 타이핑을 시작하면 입력을 검증하기 시작함
                               setState(() {
-                                _hasUserIdBeenTouched = true;
+                                _hasUIdBeenTouched = true;
                               });
                             },
                             autovalidateMode:
@@ -165,10 +165,9 @@ class _SignUpState extends State<SignUP> {
                             child: GestureDetector(
                               onTap: () {
                                 // ID 중복확인
-                                final userId = _userIdController.text;
-                                if (userId.isNotEmpty) {
-                                  accountController
-                                      .checkUserIdAvailability(userId);
+                                final uId = _uIdController.text;
+                                if (uId.isNotEmpty) {
+                                  accountController.checkUIdAvailability(uId);
                                   _validateForm();
                                 }
                               },
@@ -352,7 +351,8 @@ class _SignUpState extends State<SignUP> {
                                 ? () async {
                                     bool signupSuccess =
                                         await accountController.signUp(
-                                      _userIdController.text,
+                                      _uIdController.text,
+                                      _nameController.text,
                                       _passwordController.text,
                                       _nicknameController.text,
                                     );
@@ -386,7 +386,7 @@ class _SignUpState extends State<SignUP> {
 
   @override
   void dispose() {
-    _userIdController.dispose();
+    _uIdController.dispose();
     _passwordController.dispose();
     _nicknameController.dispose();
     _nameController.dispose();
