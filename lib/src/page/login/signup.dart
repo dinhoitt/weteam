@@ -192,7 +192,6 @@ class _SignUpState extends State<SignUP> {
                           child: TextFormField(
                             onChanged: (value) {
                               if (!_hasPasswordBeenTouched) {
-                                _validateForm();
                                 setState(() {
                                   _hasPasswordBeenTouched =
                                       true; // 사용자가 입력을 시작했음을 표시
