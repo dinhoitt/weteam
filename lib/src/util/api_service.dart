@@ -19,7 +19,7 @@ class ApiService {
   Future<void> signUp(User uid) async {
     final response = await http.post(
       Uri.parse("$_baseUrl/members/join"),
-      headers: {"Content-Type": "application/json; charset=UTF-8"},
+      headers: {"Content-Type": "application/json"},
       body: jsonEncode(uid.toJson()),
     );
     if (response.statusCode != 200) {
@@ -33,6 +33,7 @@ class ApiService {
       Uri.parse("$_baseUrl/members/verify/uid/$uid"),
       headers: {"Content-Type": "application/json"},
     );
+    print(response.statusCode); // 200 뜨는지 확인
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['result'];
     } else {
@@ -46,6 +47,7 @@ class ApiService {
       Uri.parse("$_baseUrl/members/verify/nickname/$nickname"),
       headers: {"Content-Type": "application/json"},
     );
+    print(response.statusCode); // 200 뜨는지 확인
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['result'];
     } else {

@@ -166,11 +166,12 @@ class _SignUpState extends State<SignUP> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 10.0),
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 // ID 중복확인
                                 final uid = _uidController.text;
                                 if (uid.isNotEmpty) {
-                                  accountController.checkUIdAvailability(uid);
+                                  await accountController
+                                      .checkUIdAvailability(uid);
                                   _validateForm();
                                 }
                               },
@@ -329,11 +330,11 @@ class _SignUpState extends State<SignUP> {
                             padding:
                                 const EdgeInsets.only(top: 5.0, right: 10.0),
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 // 닉네임 중복확인
                                 final nickname = _nicknameController.text;
                                 if (nickname.isNotEmpty) {
-                                  accountController
+                                  await accountController
                                       .checkNicknameAvailability(nickname);
                                 }
                                 _validateForm();
