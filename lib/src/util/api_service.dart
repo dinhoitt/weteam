@@ -3,24 +3,24 @@ import 'package:weteam/src/model/user.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String _baseUrl = "http://3.36.224.72:8080/api";
+  final String _baseUrl = "http://3.36.224.72:9090/api";
 
-  Future<void> login(String username, String password) async {
+  Future<void> login(String uid, String password) async {
     final response = await http.post(
-      Uri.parse("$_baseUrl/users/login"),
+      Uri.parse("$_baseUrl/members/login"),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"username": username, "password": password}),
+      body: jsonEncode({"uid": uid, "password": password}),
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to login');
     }
   }
 
-  Future<void> signUp(User user) async {
+  Future<void> signUp(User uid) async {
     final response = await http.post(
-      Uri.parse("$_baseUrl/users/join"),
+      Uri.parse("$_baseUrl/members/join"),
       headers: {"Content-Type": "application/json; charset=UTF-8"},
-      body: jsonEncode(user.toJson()),
+      body: jsonEncode(uid.toJson()),
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to sign up');
@@ -28,9 +28,9 @@ class ApiService {
   }
 
   // 아이디 중복 확인
-  Future<bool> checkUsernameAvailability(String username) async {
+  Future<bool> checkUIdAvailability(String uid) async {
     final response = await http.get(
-      Uri.parse("$_baseUrl/users/verify/username/$username"),
+      Uri.parse("$_baseUrl/members/verify/uid/$uid"),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
@@ -43,7 +43,7 @@ class ApiService {
   // 닉네임 중복 확인
   Future<bool> checkNicknameAvailability(String nickname) async {
     final response = await http.get(
-      Uri.parse("$_baseUrl/users/verify/nickname/{nickname}"),
+      Uri.parse("$_baseUrl/members/verify/nickname/$nickname"),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
