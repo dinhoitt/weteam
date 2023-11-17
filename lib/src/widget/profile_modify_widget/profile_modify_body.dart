@@ -1,7 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/widget/mypagewidget/etctags.dart';
 import 'package:weteam/src/widget/mypagewidget/mbtitags.dart';
@@ -10,163 +9,16 @@ import 'package:weteam/src/widget/mypagewidget/postags.dart';
 import 'package:weteam/src/widget/mypagewidget/specialtytags.dart';
 import 'package:weteam/src/widget/tagkategorie.dart';
 
-Rx<File?> _selectImageFile = Rx<File?>(null);
-
 RxString selectedTag = ''.obs;
 RxBool showMBTITags = false.obs;
 RxBool showPOSTags = false.obs;
 RxBool showPersonalityTags = false.obs;
 RxBool showSpecialtyTags = false.obs;
 RxBool showETCTags = false.obs;
-OverlayEntry? _overlayEntry;
-
-selectImage() async {
-  final ImagePicker _picker = ImagePicker();
-  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-  if (image != null) {
-    _selectImageFile.value = File(image.path);
-  }
-}
-
-void showOverlay(BuildContext context) {
-  _overlayEntry = OverlayEntry(
-    builder: (context) => Stack(
-      children: <Widget>[
-        Positioned.fill(
-          child: Container(
-            color: Colors.black.withOpacity(0.3), //불투명도 조절
-          ),
-        ),
-        GestureDetector(
-          onTap: removeOverlay, // 다른 곳을 터치하면 _removeOverlay 함수를 호출
-          behavior: HitTestBehavior.translucent, // 투명 영역 탭 감지
-        ),
-        Positioned(
-          bottom: 10.0,
-          left: 5.0,
-          right: 5.0,
-          child: Material(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12.0),
-                    child: Container(
-                      height: 23.0,
-                      child: Center(
-                        child: Text(
-                          '프로필 사진 설정',
-                          style: TextStyle(fontSize: 15.0, color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    thickness: 0.8,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(
-                      height: 23.0, // 원하는 높이로 설정
-                      child: InkWell(
-                        onTap: () {
-                          selectImage();
-                          removeOverlay();
-                        },
-                        child: Center(
-                          child: Text(
-                            '갤러리에서 사진 선택',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    thickness: 0.8,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(
-                      height: 23.0,
-                      child: InkWell(
-                        onTap: () async {
-                          await captureImage();
-                        },
-                        child: Center(
-                          child: Text(
-                            '직접 사진 찍기',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    thickness: 0.8,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 3.0, bottom: 12.0),
-                    child: Container(
-                      height: 35.0, // 원하는 높이로 설정
-                      child: InkWell(
-                        onTap: removeOverlay,
-                        child: Center(
-                          child: Text(
-                            '기존 이미지로 변경',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-  if (_overlayEntry != null) {
-    Overlay.of(context).insert(_overlayEntry!);
-  }
-}
-
-void removeOverlay() {
-  _overlayEntry?.remove();
-  _overlayEntry = null;
-}
-
-captureImage() async {
-  final ImagePicker _picker = ImagePicker();
-  final XFile? image = await _picker.pickImage(source: ImageSource.camera);
-
-  if (image != null) {
-    _selectImageFile.value = File(image.path);
-  }
-}
 
 Widget profilemodifybody(BuildContext context) {
+  ProfileController controller =
+      Get.find<ProfileController>(); // ProfileController 인스턴스 가져오기
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
     child: Column(
@@ -182,7 +34,7 @@ Widget profilemodifybody(BuildContext context) {
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 4.0,
                   spreadRadius: 2.0,
-                  offset: Offset(0, 0),
+                  offset: const Offset(0, 0),
                 ),
               ],
             ),
@@ -196,7 +48,7 @@ Widget profilemodifybody(BuildContext context) {
                       padding: EdgeInsets.only(top: Get.height * 0.05),
                       child: GestureDetector(
                         onTap: () {
-                          showOverlay(context);
+                          Get.find<ProfileController>().showOverlay(context);
                         },
                         child: Obx(
                           () => ClipOval(
@@ -204,9 +56,9 @@ Widget profilemodifybody(BuildContext context) {
                               color: Colors.blue,
                               width: 120.0,
                               height: 120,
-                              child: _selectImageFile.value == null
+                              child: controller.selectImageFile.value == null
                                   ? Container(
-                                      child: Center(
+                                      child: const Center(
                                         child: Icon(
                                           Icons.camera_alt,
                                           color: Colors.white,
@@ -214,7 +66,7 @@ Widget profilemodifybody(BuildContext context) {
                                       ),
                                     )
                                   : Image.file(
-                                      _selectImageFile.value!,
+                                      controller.selectImageFile.value!,
                                       fit: BoxFit.cover,
                                     ),
                             ),
@@ -229,10 +81,10 @@ Widget profilemodifybody(BuildContext context) {
                           Transform.scale(
                               scale: 0.6,
                               child: Image.asset(ImagePath.mapsearch)),
-                          SizedBox(
+                          const SizedBox(
                             width: 10.0,
                           ),
-                          Expanded(
+                          const Expanded(
                             child: TextField(
                               decoration: InputDecoration(
                                 border: InputBorder.none, // 텍스트 필드 아래 줄 제거
@@ -247,7 +99,7 @@ Widget profilemodifybody(BuildContext context) {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 1.0, vertical: 5.0),
-                      child: Container(
+                      child: SizedBox(
                         width: (Get.width),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 1.0),
@@ -323,18 +175,19 @@ Widget profilemodifybody(BuildContext context) {
                         ),
                       ),
                     ),
-                    if (showMBTITags.value) MBTITags(), // 여기서 MBTI 태그를 표시합니다.
-                    if (showPOSTags.value) PosTags(),
-                    if (showSpecialtyTags.value) SpecialtyTags(),
-                    if (showPersonalityTags.value) PersonalityTags(),
-                    if (showETCTags.value) ETCTags(),
+                    if (showMBTITags.value)
+                      const MBTITags(), // 여기서 MBTI 태그를 표시합니다.
+                    if (showPOSTags.value) const PosTags(),
+                    if (showSpecialtyTags.value) const SpecialtyTags(),
+                    if (showPersonalityTags.value) const PersonalityTags(),
+                    if (showETCTags.value) const ETCTags(),
                   ],
                 );
               }),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20.0,
         ),
         Row(
