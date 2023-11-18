@@ -7,6 +7,7 @@ class AccountController extends GetxController {
   final isUIdAvailable = false.obs;
   final isNicknameAvailable = false.obs;
   final ApiService _apiService = ApiService();
+  final currentUser = Rx<User?>(null); // 현재 유저 정보
 
   // 회원가입 메서드
   Future<bool> signUp(
@@ -31,10 +32,12 @@ class AccountController extends GetxController {
   }
 
   // 로그인 메서드 추가
-  Future<void> login(String uId, String password) async {
+  Future<void> login(String uid, String password) async {
     isLoading.value = true;
     try {
-      await _apiService.login(uId, password);
+      var response = await _apiService.login(uid, password);
+      currentUser.value = User.fromJson(response);
+      print('Logged in user: ${currentUser.value}');
       Get.snackbar('Success', '로그인 성공');
     } catch (e) {
       Get.snackbar('Error', '로그인 실패: $e');
@@ -43,6 +46,7 @@ class AccountController extends GetxController {
     }
   }
 
+  // 아이디 중복 확인
   Future<void> checkUIdAvailability(String uId) async {
     try {
       bool available = await _apiService.checkUsernameAvailability(uId);
@@ -62,6 +66,7 @@ class AccountController extends GetxController {
     }
   }
 
+  // 닉네임 중복 확인
   Future<void> checkNicknameAvailability(String nickname) async {
     try {
       bool available = await _apiService.checkNicknameAvailability(nickname);

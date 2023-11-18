@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final AccountController accountController = Get.put(AccountController());
   late String uId;
   late String password;
+  final isLoading = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +78,18 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     GestureDetector(
                       onTap: () async {
+                        isLoading.value = true;
                         try {
                           await accountController.login(uId, password);
-                          Get.offAll(() => const App());
-                        } catch (e) {}
+                          if (accountController.currentUser.value != null) {
+                            // Check if login was successful
+                            Get.offAll(() => const App());
+                          } else {
+                            isLoading.value = false;
+                          }
+                        } catch (e) {
+                          isLoading.value = false;
+                        }
                       },
                       child: Image.asset(ImagePath.loginbutton1),
                     ),

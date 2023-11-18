@@ -3,20 +3,25 @@ import 'package:weteam/src/model/user.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // final String _baseUrl = "http://3.36.224.72:8080/api";
   final String _baseUrl = "http://3.36.224.72:9090/api";
 
-  Future<void> login(String uId, String password) async {
+//login
+  Future<Map<String, dynamic>> login(String uid, String password) async {
     final response = await http.post(
       Uri.parse("$_baseUrl/members/login"),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"uid": uId, "password": password}),
+      body: jsonEncode({"uid": uid, "password": password}),
     );
-    if (response.statusCode != 200) {
+    if (response.statusCode == 200) {
+      print('Login Success Response: ${response.body}'); // HTTP 상태코드와 응답 본문
+      return jsonDecode(response.body);
+    } else {
+      print('Login Failed Response: ${response.statusCode} - ${response.body}');
       throw Exception('Failed to login');
     }
   }
 
+//signup
   Future<void> signUp(User user) async {
     final response = await http.post(
       Uri.parse("$_baseUrl/members/join"),

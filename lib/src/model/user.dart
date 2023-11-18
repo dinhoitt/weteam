@@ -1,16 +1,16 @@
 class User {
-  late String uid;
-  late String username;
-  late String password;
-  late String nickname;
+  final String uid; // 변경 x
+  String username;
+  String password;
+  String nickname;
   int verifyUsername;
   int verifyNickname;
 
   User({
-    required this.uid,
+    this.uid = "",
     required this.username,
     required this.password,
-    required this.nickname,
+    this.nickname = "",
     this.verifyUsername = 1,
     this.verifyNickname = 1,
   });
@@ -20,7 +20,7 @@ class User {
       uid: json['uid'],
       username: json['username'],
       password: json['password'],
-      nickname: json['nickname'],
+      nickname: json['nickname'] as String,
       verifyUsername: json['verifyusername'] ?? 1,
       verifyNickname: json['verifyNickname'] ?? 1,
     );
