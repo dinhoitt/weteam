@@ -12,7 +12,7 @@ class SignUP extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUP> {
-  final TextEditingController _uIdController = TextEditingController();
+  final TextEditingController _uidController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -66,7 +66,7 @@ class _SignUpState extends State<SignUP> {
 
   void _validateForm() {
     bool isUIdValid =
-        _uIdController.text.length >= 5 && _uIdController.text.length <= 11;
+        _uidController.text.length >= 5 && _uidController.text.length <= 11;
     bool isPasswordComplex =
         _validatePasswordComplexity(_passwordController.text);
     bool isPasswordMatched =
@@ -131,7 +131,7 @@ class _SignUpState extends State<SignUP> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: TextFormField(
-                            controller: _uIdController, // UserId 컨트롤러 연결
+                            controller: _uidController, // UserId 컨트롤러 연결
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10.0),
@@ -144,8 +144,8 @@ class _SignUpState extends State<SignUP> {
                               ),
                               errorText:
                                   _hasUIdBeenTouched && // 사용자가 타이핑을 시작 했거나
-                                          (_uIdController.text.length < 5 ||
-                                              _uIdController.text.length >
+                                          (_uidController.text.length < 5 ||
+                                              _uidController.text.length >
                                                   11) // 조건에 안맞을 때 > 11
                                       ? '아이디는 5-11자 사이여야 합니다.'
                                       : null,
@@ -166,11 +166,12 @@ class _SignUpState extends State<SignUP> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 10.0),
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 // ID 중복확인
-                                final uId = _uIdController.text;
-                                if (uId.isNotEmpty) {
-                                  accountController.checkUIdAvailability(uId);
+                                final uid = _uidController.text;
+                                if (uid.isNotEmpty) {
+                                  await accountController
+                                      .checkUIdAvailability(uid);
                                   _validateForm();
                                 }
                               },
@@ -329,11 +330,11 @@ class _SignUpState extends State<SignUP> {
                             padding:
                                 const EdgeInsets.only(top: 5.0, right: 10.0),
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 // 닉네임 중복확인
                                 final nickname = _nicknameController.text;
                                 if (nickname.isNotEmpty) {
-                                  accountController
+                                  await accountController
                                       .checkNicknameAvailability(nickname);
                                 }
                                 _validateForm();
@@ -353,7 +354,7 @@ class _SignUpState extends State<SignUP> {
                                 ? () async {
                                     bool signupSuccess =
                                         await accountController.signUp(
-                                      _uIdController.text,
+                                      _uidController.text,
                                       _nameController.text,
                                       _passwordController.text,
                                       _nicknameController.text,
@@ -388,7 +389,7 @@ class _SignUpState extends State<SignUP> {
 
   @override
   void dispose() {
-    _uIdController.dispose();
+    _uidController.dispose();
     _passwordController.dispose();
     _nicknameController.dispose();
     _nameController.dispose();

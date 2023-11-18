@@ -24,7 +24,7 @@ class BuildBox3 extends StatelessWidget {
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 4.0,
                     spreadRadius: 2.0,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -35,16 +35,16 @@ class BuildBox3 extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 4.0),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 4.0),
                       child: Column(
                         children: [
                           Text('업무 분배가 막막하다면?'),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
                         '사다리 타기',
                         style: TextStyle(
@@ -65,7 +65,7 @@ class BuildBox3 extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5.0,
           ),
           Expanded(
@@ -80,23 +80,23 @@ class BuildBox3 extends StatelessWidget {
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 4.0,
                     spreadRadius: 2.0,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 4.0),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 4.0),
                     child: Column(
                       children: [
                         Text('팀플이 처음인 새내기!'),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
                       '팀플 꿀팁 모음',
                       style: TextStyle(

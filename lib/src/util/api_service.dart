@@ -21,12 +21,11 @@ class ApiService {
     }
   }
 
-//signup
-  Future<void> signUp(User user) async {
+  Future<void> signUp(User uid) async {
     final response = await http.post(
       Uri.parse("$_baseUrl/members/join"),
-      headers: {"Content-Type": "application/json; charset=UTF-8"},
-      body: jsonEncode(user.toJson()),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(uid.toJson()),
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to sign up');
@@ -34,11 +33,12 @@ class ApiService {
   }
 
   // 아이디 중복 확인
-  Future<bool> checkUsernameAvailability(String username) async {
+  Future<bool> checkUIdAvailability(String uid) async {
     final response = await http.get(
-      Uri.parse("$_baseUrl/members/verify/username/$username"),
+      Uri.parse("$_baseUrl/members/verify/uid/$uid"),
       headers: {"Content-Type": "application/json"},
     );
+    print(response.statusCode); // 200 뜨는지 확인
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['result'];
     } else {
@@ -52,6 +52,7 @@ class ApiService {
       Uri.parse("$_baseUrl/members/verify/nickname/$nickname"),
       headers: {"Content-Type": "application/json"},
     );
+    print(response.statusCode); // 200 뜨는지 확인
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['result'];
     } else {

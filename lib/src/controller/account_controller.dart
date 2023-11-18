@@ -11,7 +11,7 @@ class AccountController extends GetxController {
 
   // 회원가입 메서드
   Future<bool> signUp(
-    String uId,
+    String uid,
     String username,
     String password,
     String nickname,
@@ -19,7 +19,7 @@ class AccountController extends GetxController {
     isLoading.value = true;
     try {
       var newUser = User(
-          uid: uId, password: password, username: username, nickname: nickname);
+          uid: uid, password: password, username: username, nickname: nickname);
       await _apiService.signUp(newUser);
       Get.snackbar('Success', '회원가입 성공');
       return true;
@@ -46,10 +46,9 @@ class AccountController extends GetxController {
     }
   }
 
-  // 아이디 중복 확인
-  Future<void> checkUIdAvailability(String uId) async {
+  Future<void> checkUIdAvailability(String uid) async {
     try {
-      bool available = await _apiService.checkUsernameAvailability(uId);
+      bool available = await _apiService.checkUIdAvailability(uid);
       isUIdAvailable.value = available;
 
       if (available) {
@@ -61,6 +60,7 @@ class AccountController extends GetxController {
             snackPosition: SnackPosition.BOTTOM);
       }
     } catch (e) {
+      // print("error");
       // 오류 처리
       Get.snackbar('Error', '사용자 이름 중복 확인 중 오류 발생: $e');
     }

@@ -20,7 +20,7 @@ class BuildBox2 extends StatelessWidget {
               color: Colors.black.withOpacity(0.1),
               blurRadius: 4.0,
               spreadRadius: 2.0,
-              offset: Offset(0, 0),
+              offset: const Offset(0, 0),
             ),
           ],
         ),
@@ -35,10 +35,10 @@ class BuildBox2 extends StatelessWidget {
                   Image.asset(
                     ImagePath.emptysche,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  Text('이번 학기 가장 중요한 스케쥴을 고정해보세요! \n 스케쥴 추가하고 고정하기 >',
+                  const Text('이번 학기 가장 중요한 스케쥴을 고정해보세요! \n 스케쥴 추가하고 고정하기 >',
                       style: TextStyle(
                         fontSize: 10.0,
                         fontWeight: FontWeight.bold,

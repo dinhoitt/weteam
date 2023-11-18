@@ -20,7 +20,7 @@ class BuildBox1 extends StatelessWidget {
               color: Colors.black.withOpacity(0.1),
               blurRadius: 4.0,
               spreadRadius: 2.0,
-              offset: Offset(0, 0),
+              offset: const Offset(0, 0),
             ),
           ],
         ),
@@ -38,7 +38,7 @@ class BuildBox1 extends StatelessWidget {
                   height: 1,
                 ),
               ),
-              Text(
+              const Text(
                 '팀플 바로가기',
                 style: TextStyle(
                   fontSize: 18.0,
@@ -52,7 +52,7 @@ class BuildBox1 extends StatelessWidget {
                   child: Image.asset(ImagePath.emptygroup),
                 ),
               ),
-              Center(
+              const Center(
                 child: Text('앗, 현재진행중인 팀플이 없어 보여요! \n 지금 팀플 추가하러 가기 >',
                     style: TextStyle(
                       fontSize: 10.0,
