@@ -21,6 +21,7 @@ class ApiService {
     }
   }
 
+  //회원가입
   Future<void> signUp(User uid) async {
     final response = await http.post(
       Uri.parse("$_baseUrl/members/join"),

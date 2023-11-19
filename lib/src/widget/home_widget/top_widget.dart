@@ -24,9 +24,20 @@ class TopWidget extends StatelessWidget {
             // currentUser가 null이 아닐 때 닉네임 표시, null이면 'Guest' 표시
             String NickName =
                 accountController.currentUser.value?.nickname ?? 'Guest';
-            return Text(
-              '안녕하세요 $NickName 님!',
-              style: const TextStyle(fontSize: 20.0),
+            return RichText(
+              text: TextSpan(
+                style: const TextStyle(
+                    fontSize: 20.0, color: Colors.black), // Default text style
+                children: <TextSpan>[
+                  const TextSpan(text: '안녕하세요 '), // Unstyled
+                  TextSpan(
+                    text: NickName, // Variable to insert
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold), // Bold text style
+                  ),
+                  const TextSpan(text: ' 님!'), // Unstyled
+                ],
+              ),
             );
           }),
           Row(
