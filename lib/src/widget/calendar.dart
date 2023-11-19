@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:weteam/src/controller/schedule_controller.dart';
 import 'package:weteam/src/model/event.dart';
+import 'package:weteam/src/util/calendar_utils.dart';
 
 class SimpleCalendar extends StatefulWidget {
   final CalendarFormat format;
@@ -30,7 +31,6 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
         markerBuilder: (context, date, _) {
           var controller = Get.find<CalendarController>();
           var events = controller.getEventsForDay(date);
-
           if (events.isNotEmpty) {
             return Positioned(
               child: _buildEventsMarker(date, events),
@@ -39,61 +39,7 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
           return null;
         },
         dowBuilder: (context, day) {
-          switch (day.weekday) {
-            case 1:
-              return const Center(
-                child: Text(
-                  '월',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              );
-            case 2:
-              return const Center(
-                child: Text(
-                  '화',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              );
-            case 3:
-              return const Center(
-                child: Text(
-                  '수',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              );
-            case 4:
-              return const Center(
-                child: Text(
-                  '목',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              );
-            case 5:
-              return const Center(
-                child: Text(
-                  '금',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              );
-            case 6:
-              return const Center(
-                child: Text(
-                  '토',
-                  style: TextStyle(
-                      color: Colors.blue, fontWeight: FontWeight.bold),
-                ),
-              );
-            case 7:
-              return const Center(
-                child: Text(
-                  '일',
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-                ),
-              );
-            default:
-              return Center(child: Text(day.day.toString()));
-          }
+          return CalenderUtils.getWeekdayWidget(day);
         },
         defaultBuilder: (context, day, _) {
           if (day.weekday == DateTime.saturday) {

@@ -4,6 +4,8 @@ import 'package:weteam/src/controller/mypage_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 
 class MyPageBox1 extends StatefulWidget {
+  const MyPageBox1({super.key});
+
   @override
   _MyPageBox1State createState() => _MyPageBox1State();
 }
@@ -37,8 +39,8 @@ class _MyPageBox1State extends State<MyPageBox1> {
               color: Colors.transparent,
               child: Container(
                 width: Get.width - 20.0,
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
-                padding: EdgeInsets.all(15.0),
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
@@ -47,16 +49,16 @@ class _MyPageBox1State extends State<MyPageBox1> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 4.0),
+                      padding: EdgeInsets.only(bottom: 4.0),
                       child: Text(
                         '팀메이트력이란?',
                         style: TextStyle(
@@ -101,7 +103,7 @@ class _MyPageBox1State extends State<MyPageBox1> {
               color: Colors.black.withOpacity(0.1),
               blurRadius: 4.0,
               spreadRadius: 2.0,
-              offset: Offset(0, 0),
+              offset: const Offset(0, 0),
             ),
           ],
         ),
@@ -134,7 +136,7 @@ class _MyPageBox1State extends State<MyPageBox1> {
                                     color: Colors.grey,
                                     width: 100.0,
                                     height: 100.0,
-                                    child: Center(
+                                    child: const Center(
                                       child: Icon(
                                         Icons.camera_alt,
                                         color: Colors.black,
@@ -153,9 +155,8 @@ class _MyPageBox1State extends State<MyPageBox1> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 2.0),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2.0),
                               child: Text(
                                 'xxx님',
                                 style: TextStyle(
@@ -163,9 +164,8 @@ class _MyPageBox1State extends State<MyPageBox1> {
                                     fontSize: 20.0),
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 2.0),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2.0),
                               child: Text('xx대 xxxxx 학부'),
                             ),
                             Padding(
@@ -189,12 +189,12 @@ class _MyPageBox1State extends State<MyPageBox1> {
                   ],
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 1.0,
               ),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     '내 팀메이트력',
                     style: TextStyle(fontSize: 13.0),
                   ),
@@ -226,7 +226,7 @@ class _MyPageBox1State extends State<MyPageBox1> {
                         borderRadius: BorderRadius.circular(5.0),
                         value: progressValue,
                         backgroundColor: Colors.grey,
-                        color: Color(0xFFE2583E),
+                        color: const Color(0xFFE2583E),
                       ),
                     ),
                     Align(
@@ -239,7 +239,7 @@ class _MyPageBox1State extends State<MyPageBox1> {
                             padding: const EdgeInsets.only(top: 5.0),
                             child: Text(
                               '${(progressValue * 100).toInt()}%',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Color(0xFFE2583E),
                                   fontWeight: FontWeight.bold),
                             ),
@@ -259,18 +259,18 @@ class _MyPageBox1State extends State<MyPageBox1> {
 
   Widget _roleTag(String text) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 8.0,
         vertical: 3.0,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
-        color: Color(0xFF2296F3),
+        color: const Color(0xFF2296F3),
       ),
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white, fontSize: 10.0),
+        style: const TextStyle(color: Colors.white, fontSize: 10.0),
       ),
     );
   }
