@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/page/tp_tip.dart';
 import 'package:weteam/src/widget/home_widget/buildbox1.dart';
 import 'package:weteam/src/widget/home_widget/buildbox2.dart';
 import 'package:weteam/src/widget/home_widget/buildbox3.dart';
@@ -49,7 +51,11 @@ class Home extends StatelessWidget {
               const SizedBox(
                 height: 5.0,
               ),
-              const BuildBox3(),
+              GestureDetector(
+                  onTap: () {
+                    Get.to(() => const TipPage());
+                  },
+                  child: const BuildBox3()),
             ],
           ),
         );

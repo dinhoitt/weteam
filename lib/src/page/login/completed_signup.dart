@@ -50,7 +50,8 @@ class CompletedSignUp extends StatelessWidget {
                     Get.offAll(() => const Login());
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
+                    padding: const EdgeInsets.only(
+                        top: 40.0, left: 40.0, right: 40.0),
                     child: Image.asset(ImagePath.completedbutton2),
                   )),
             ],

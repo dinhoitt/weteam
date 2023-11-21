@@ -25,6 +25,7 @@ dependencies:
   image_picker: ^1.0.4
   camera: ^0.10.5+5
   http: ^1.1.0
+  flutter_secure_storage: ^9.0.0
   
 
 
@@ -40,10 +41,28 @@ flutter:
     - assets/images/
 
   fonts:
-  - family: AGothic14
+  - family: a고딕12
+    fonts:    
+      - asset: assets/fonts/a고딕12.ttf
+  - family: a고딕14
     fonts:
       - asset: assets/fonts/a고딕14.ttf
+  - family: a고딕15
+    fonts:    
       - asset: assets/fonts/a고딕15.ttf
+  - family: a고딕16
+    fonts:    
+      - asset: assets/fonts/a고딕16.ttf
+  - family: a고딕17
+    fonts:    
+      - asset: assets/fonts/a고딕17.ttf
+  - family: a고딕19
+    fonts:    
+      - asset: assets/fonts/a고딕19.ttf
+  - family: SB어그로M
+    fonts:
+      - asset: assets/fonts/SB 어그로 M.ttf
+      
 
 flutter_launcher_icons:
   android: "launcher_icon"

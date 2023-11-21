@@ -20,10 +20,10 @@ class _TeamPlayState extends State<TeamPlay> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: const Color(0xFFF5F5F5),
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+          title: const Padding(
+            padding: EdgeInsets.only(top: 15.0),
             child: Text(
               '진행 중인 팀플',
               style: TextStyle(
@@ -56,7 +56,7 @@ class _TeamPlayState extends State<TeamPlay> {
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 4.0,
                     spreadRadius: 2.0,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -66,19 +66,20 @@ class _TeamPlayState extends State<TeamPlay> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         '진행 중인 팀플',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       GridView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: itemCount + 1,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 10.0,
                           crossAxisSpacing: 20.0,
@@ -106,7 +107,7 @@ class _TeamPlayState extends State<TeamPlay> {
                                       ),
                                     ),
                                   ),
-                                  Text('새로운 팀플 추가하기')
+                                  const Text('새로운 팀플 추가하기')
                                 ],
                               ),
                             );
@@ -129,7 +130,7 @@ class _TeamPlayState extends State<TeamPlay> {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
+                                    const Positioned(
                                       bottom: 10,
                                       right: 10,
                                       child: Text(
@@ -141,8 +142,8 @@ class _TeamPlayState extends State<TeamPlay> {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 8.0),
                                   child: Text('팀플명'),
                                 )
                               ],

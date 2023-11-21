@@ -62,4 +62,6 @@ class ImagePath {
   static String get iconrecycle => 'assets/images/recycle_icon.png';
   static String get iconmemo => 'assets/images/memo_icon.png';
   static String get completedbutton2 => 'assets/images/completed_button_2.png';
+  static String get tipwidget1 => 'assets/images/tipwidget1.png';
+  static String get tipwidget2 => 'assets/images/tipwidget2.png';
 }

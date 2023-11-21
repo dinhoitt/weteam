@@ -7,9 +7,9 @@ class Notice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFF5F5F5),
-        title: Padding(
-          padding: const EdgeInsets.only(top: 15.0),
+        backgroundColor: const Color(0xFFF5F5F5),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 15.0),
           child: Text(
             '공지사항',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -18,7 +18,7 @@ class Notice extends StatelessWidget {
         centerTitle: true,
       ),
       body: _body(),
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
     );
   }
 
@@ -38,7 +38,7 @@ class Notice extends StatelessWidget {
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 4.0,
                     spreadRadius: 2.0,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -50,15 +50,15 @@ class Notice extends StatelessWidget {
                     return Column(
                       children: [
                         if (index == 0)
-                          SizedBox(
+                          const SizedBox(
                             height: 15.0,
                           ),
                         Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                               left: 10.0, right: 10.0, bottom: 3.0, top: 3.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.0),
-                            color: Color(0xFFF5F5F5),
+                            color: const Color(0xFFF5F5F5),
                           ),
                           child: ExpansionTile(
                             title: Column(
@@ -66,11 +66,12 @@ class Notice extends StatelessWidget {
                               children: [
                                 Text(
                                   items[index]['notifications'][0]['title'],
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   items[index]['date'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12.0, color: Colors.grey),
                                 ),
                               ],

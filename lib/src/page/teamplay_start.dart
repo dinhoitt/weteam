@@ -8,9 +8,9 @@ class TeamplayStart extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFF5F5F5),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+          backgroundColor: const Color(0xFFF5F5F5),
+          title: const Padding(
+            padding: EdgeInsets.only(top: 15.0),
             child: Text(
               '팀플 시작하기',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -19,7 +19,7 @@ class TeamplayStart extends StatelessWidget {
           centerTitle: true,
         ),
         body: _body(),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: const Color(0xFFF5F5F5),
       ),
     );
   }
@@ -36,7 +36,7 @@ class TeamplayStart extends StatelessWidget {
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 4.0,
                 spreadRadius: 2.0,
-                offset: Offset(0, 0),
+                offset: const Offset(0, 0),
               ),
             ],
           ),

@@ -30,8 +30,9 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.black,
             elevation: 0.0,
             titleTextStyle: TextStyle(
-              fontFamily: 'AGothic14',
+              fontFamily: 'a고딕14',
               fontWeight: FontWeight.w500,
+              fontSize: 20.0,
               color: Colors.black,
             ),
           ),

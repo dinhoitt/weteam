@@ -29,13 +29,18 @@ class TopWidget extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 20.0, color: Colors.black), // Default text style
                 children: <TextSpan>[
-                  const TextSpan(text: '안녕하세요 '), // Unstyled
+                  const TextSpan(
+                      text: '안녕하세요 ',
+                      style: TextStyle(fontFamily: 'a고딕14')), // Unstyled
                   TextSpan(
                     text: NickName, // Variable to insert
                     style: const TextStyle(
+                        fontFamily: 'a고딕15',
                         fontWeight: FontWeight.bold), // Bold text style
                   ),
-                  const TextSpan(text: ' 님!'), // Unstyled
+                  const TextSpan(
+                      text: ' 님!',
+                      style: TextStyle(fontFamily: 'a고딕14')), // Unstyled
                 ],
               ),
             );
