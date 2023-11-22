@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUP> {
   bool _hasPasswordBeenTouched = false; // 비밀번호를 입력하기 시작 했을 때
   bool _validatePasswordComplexity(String password) {
     String pattern =
-        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[\$@\$!%*?&])[A-Za-z\d\$@\$!%*?&]{8,}';
+        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[\$@\$!%*?&])[A-Za-z\d\$@\$!%*?&#]{8,}';
     RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(password);
   }

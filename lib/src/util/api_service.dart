@@ -3,7 +3,7 @@ import 'package:weteam/src/model/user.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String _baseUrl = "http://15.164.221.170:9090//api";
+  final String _baseUrl = "http://15.164.221.170:9090/api";
 
 //login
   Future<Map<String, dynamic>> login(String uid, String password) async {
