@@ -16,7 +16,7 @@ RxBool showPersonalityTags = false.obs;
 RxBool showSpecialtyTags = false.obs;
 RxBool showETCTags = false.obs;
 
-Widget profilemodifybody(BuildContext context) {
+Widget profileeditbody(BuildContext context) {
   ProfileController controller =
       Get.find<ProfileController>(); // ProfileController 인스턴스 가져오기
   return Padding(
@@ -88,7 +88,7 @@ Widget profilemodifybody(BuildContext context) {
                             child: TextField(
                               decoration: InputDecoration(
                                 border: InputBorder.none, // 텍스트 필드 아래 줄 제거
-                                hintText: '소속',
+                                hintText: '소속 : ex) 꿀벌대 꿀만들기 학부',
                                 hintStyle: TextStyle(color: Colors.grey),
                               ),
                             ),

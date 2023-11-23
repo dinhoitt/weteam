@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:weteam/src/controller/profile_controller.dart';
 import 'package:weteam/src/widget/profile_edit_widget/profile_modify_body.dart';
 
-class Profile_Modify extends StatefulWidget {
-  const Profile_Modify({super.key});
+class Profile_Edit extends StatefulWidget {
+  const Profile_Edit({super.key});
 
   @override
-  _Profile_ModifyState createState() => _Profile_ModifyState();
+  _Profile_EditState createState() => _Profile_EditState();
 }
 
-class _Profile_ModifyState extends State<Profile_Modify> {
+class _Profile_EditState extends State<Profile_Edit> {
   final ProfileController controller = Get.find<ProfileController>();
 
   @override
@@ -28,7 +28,7 @@ class _Profile_ModifyState extends State<Profile_Modify> {
           ),
           centerTitle: true,
         ),
-        body: profilemodifybody(context),
+        body: profileeditbody(context),
         backgroundColor: const Color(0xFFF5F5F5),
       ),
     );

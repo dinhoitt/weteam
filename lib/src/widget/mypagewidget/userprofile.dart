@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/controller/mypage_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/widget/mypagewidget/userprofile_box.dart';
 
 class MyPageBox1 extends StatefulWidget {
   const MyPageBox1({super.key});
@@ -147,43 +148,11 @@ class _MyPageBox1State extends State<MyPageBox1> {
                         ),
                       );
                     }),
-                    Expanded(
+                    const Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 10.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                              child: Text(
-                                'xxx님',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20.0),
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                              child: Text('xx대 xxxxx 학부'),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Wrap(
-                                direction: Axis.horizontal,
-                                spacing: 2.0,
-                                runSpacing: 5.0,
-                                children: [
-                                  _roleTag('# PPT 제작'),
-                                  _roleTag('# 일본어'),
-                                  _roleTag('# PPT 제작'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: UserProfileBox(),
                       ),
                     ),
                   ],
@@ -253,24 +222,6 @@ class _MyPageBox1State extends State<MyPageBox1> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _roleTag(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8.0,
-        vertical: 3.0,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.0),
-        color: const Color(0xFF2296F3),
-      ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white, fontSize: 10.0),
       ),
     );
   }

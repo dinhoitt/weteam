@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:weteam/src/model/profile_model.dart';
 import 'package:weteam/src/model/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -58,6 +60,18 @@ class ApiService {
       return jsonDecode(response.body)['result'];
     } else {
       throw Exception('Failed to check nickname availability');
+    }
+  }
+
+  // profile_edit 메소드
+  Future<void> saveProfile(ProfileModel profile) async {
+    final response = await http.post(
+      Uri.parse("$_baseUrl/"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(profile.toJson()),
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to save profile information');
     }
   }
 }
