@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/profile_controller.dart';
+import 'package:weteam/src/controller/profile_image_controller.dart';
 import 'package:weteam/src/page/completed_tp.dart';
 import 'package:weteam/src/page/profile_edit.dart';
 import 'package:weteam/src/widget/mypagewidget/userprofile.dart';
 
 class MyPage extends StatelessWidget {
-  final ProfileController controller = Get.put(ProfileController());
+  final ProfileImageController controller = Get.put(ProfileImageController());
   MyPage({Key? key}) : super(key: key);
 
   @override

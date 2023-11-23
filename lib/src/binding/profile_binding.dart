@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/profile_controller.dart';
+import 'package:weteam/src/controller/profile_image_controller.dart';
 
 class ProfileBinding implements Bindings {
   @override
   void dependencies() {
-    Get.put(ProfileController());
+    Get.put(ProfileImageController());
   }
 }

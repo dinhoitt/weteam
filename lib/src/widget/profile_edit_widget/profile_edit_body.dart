@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/profile_controller.dart';
+import 'package:weteam/src/controller/profile_image_controller.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/widget/mypagewidget/etctags.dart';
 import 'package:weteam/src/widget/mypagewidget/mbtitags.dart';
@@ -17,8 +17,8 @@ RxBool showSpecialtyTags = false.obs;
 RxBool showETCTags = false.obs;
 
 Widget profileeditbody(BuildContext context) {
-  ProfileController controller =
-      Get.find<ProfileController>(); // ProfileController 인스턴스 가져오기
+  ProfileImageController controller =
+      Get.find<ProfileImageController>(); // ProfileController 인스턴스 가져오기
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
     child: Column(
@@ -48,7 +48,8 @@ Widget profileeditbody(BuildContext context) {
                       padding: EdgeInsets.only(top: Get.height * 0.05),
                       child: GestureDetector(
                         onTap: () {
-                          Get.find<ProfileController>().showOverlay(context);
+                          Get.find<ProfileImageController>()
+                              .showOverlay(context);
                         },
                         child: Obx(
                           () => ClipOval(
@@ -175,8 +176,7 @@ Widget profileeditbody(BuildContext context) {
                         ),
                       ),
                     ),
-                    if (showMBTITags.value)
-                      const MBTITags(), // 여기서 MBTI 태그를 표시합니다.
+                    if (showMBTITags.value) MBTITags(), // 여기서 MBTI 태그를 표시합니다.
                     if (showPOSTags.value) const PosTags(),
                     if (showSpecialtyTags.value) const SpecialtyTags(),
                     if (showPersonalityTags.value) const PersonalityTags(),

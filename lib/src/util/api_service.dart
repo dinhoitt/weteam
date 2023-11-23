@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:get/get.dart';
 import 'package:weteam/src/model/profile_model.dart';
 import 'package:weteam/src/model/user.dart';
 import 'package:http/http.dart' as http;

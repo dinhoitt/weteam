@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:weteam/src/util/overlay_utils.dart';
 
-class ProfileController extends GetxController {
+class ProfileImageController extends GetxController {
   final Rx<File?> _selectImageFile = Rx<File?>(null);
   Rx<File?> get selectImageFile => _selectImageFile;
   final OverlayUtils overlayUtils = OverlayUtils(); //overlay_utils 가져오기
@@ -109,7 +109,7 @@ class ProfileController extends GetxController {
                       height: 23.0,
                       child: InkWell(
                         onTap: () {
-                          Get.find<ProfileController>().captureImage();
+                          Get.find<ProfileImageController>().captureImage();
                           overlayUtils.removeOverlay();
                         },
                         child: const Center(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/src/controller/profile_controller.dart';
-import 'package:weteam/src/widget/profile_edit_widget/profile_modify_body.dart';
+import 'package:weteam/src/controller/profile_image_controller.dart';
+import 'package:weteam/src/widget/profile_edit_widget/profile_edit_body.dart';
 
 class Profile_Edit extends StatefulWidget {
   const Profile_Edit({super.key});
@@ -11,7 +11,7 @@ class Profile_Edit extends StatefulWidget {
 }
 
 class _Profile_EditState extends State<Profile_Edit> {
-  final ProfileController controller = Get.find<ProfileController>();
+  final ProfileImageController controller = Get.find<ProfileImageController>();
 
   @override
   Widget build(BuildContext context) {

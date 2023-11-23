@@ -24,7 +24,7 @@ class MBTITags extends StatelessWidget {
       'ISTJ',
     ];
 
-    return Container(
+    return SizedBox(
       width: 270.0,
       child: Wrap(
         spacing: 6.0, // 태그 사이의 가로 간격
@@ -35,14 +35,15 @@ class MBTITags extends StatelessWidget {
             child: GestureDetector(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
                   border: Border.all(color: Colors.blue, width: 0.5),
                 ),
                 child: Text(
                   '# $tag',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),

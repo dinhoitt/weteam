@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:weteam/src/binding/init_binding.dart';
-import 'package:weteam/src/controller/account_controller.dart';
-import 'package:weteam/src/controller/schedule_controller.dart';
 import 'package:weteam/src/view/login.dart';
 
 void main() async {
@@ -12,8 +10,6 @@ void main() async {
   await initializeDateFormatting('ko_KR');
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
-  Get.put(CalendarController()); // 일정 추가 컨트롤러
-  Get.put(AccountController()); //계정
   runApp(const MyApp());
 }
 
