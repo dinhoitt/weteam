@@ -5,7 +5,6 @@ class User {
   String nickname;
   int verifyUsername;
   int verifyNickname;
-  String? imageUrl;
 
   User({
     this.uid = "",
@@ -14,7 +13,6 @@ class User {
     this.nickname = "",
     this.verifyUsername = 1,
     this.verifyNickname = 1,
-    this.imageUrl,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -25,7 +23,6 @@ class User {
       nickname: json['nickname'] ?? "",
       verifyUsername: json['verifyusername'] ?? 1,
       verifyNickname: json['verifyNickname'] ?? 1,
-      imageUrl: json['imageUrl'],
     );
   }
 
@@ -36,6 +33,5 @@ class User {
         'nickname': nickname,
         'verifyUsername': verifyUsername,
         'verifyNickname': verifyNickname,
-        'imageUrl': imageUrl,
       };
 }
