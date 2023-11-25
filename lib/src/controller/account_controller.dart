@@ -31,11 +31,19 @@ class AccountController extends GetxController {
     }
   }
 
-  // 로그인 메서드 추가
+  // 로그인 메서드
   Future<void> login(String uid, String password) async {
     isLoading.value = true;
     try {
-      await _apiService.login(uid, password);
+      String jwt = await _apiService.login(uid, password);
+      // username이나 다른 정보가 필요하다면 추가 API 호출이 필요할 수 있습니다.
+      // 여기서는 JWT만 저장합니다.
+      currentUser.value = User(
+        uid: uid, // uid는 로그인 요청에서 사용됩니다.
+        username: 'temp-username', // 실제 username을 얻을 다른 방법을 고려해야 합니다.
+        password: '', // 비밀번호는 저장하지 않습니다.
+        token: jwt,
+      );
       Get.snackbar('Success', 'Login successful. JWT stored.');
     } catch (e) {
       Get.snackbar('Error', 'Login failed: $e');

@@ -11,7 +11,7 @@ void main() async {
   await initializeDateFormatting('ko_KR');
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
-  Get.put(() => AccountController()); // 계정 컨트롤러
+  Get.put(AccountController()); // 계정 컨트롤러
   runApp(const MyApp());
 }
 

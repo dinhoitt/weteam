@@ -3,6 +3,7 @@ class User {
   String username;
   String password;
   String nickname;
+  final String? token;
   int verifyUsername;
   int verifyNickname;
 
@@ -13,6 +14,7 @@ class User {
     this.nickname = "",
     this.verifyUsername = 1,
     this.verifyNickname = 1,
+    this.token,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class User {
       nickname: json['nickname'] ?? "",
       verifyUsername: json['verifyusername'] ?? 1,
       verifyNickname: json['verifyNickname'] ?? 1,
+      token: json['token'],
     );
   }
 
@@ -33,5 +36,6 @@ class User {
         'nickname': nickname,
         'verifyUsername': verifyUsername,
         'verifyNickname': verifyNickname,
+        'token': token,
       };
 }

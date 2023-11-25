@@ -22,8 +22,9 @@ class TopWidget extends StatelessWidget {
         children: [
           Obx(() {
             // currentUser가 null이 아닐 때 닉네임 표시, null이면 'Guest' 표시
-            String NickName =
+            String nickname =
                 accountController.currentUser.value?.nickname ?? 'Guest';
+
             return RichText(
               text: TextSpan(
                 style: const TextStyle(
@@ -33,7 +34,7 @@ class TopWidget extends StatelessWidget {
                       text: '안녕하세요 ',
                       style: TextStyle(fontFamily: 'a고딕14')), // Unstyled
                   TextSpan(
-                    text: NickName, // Variable to insert
+                    text: nickname, // Variable to insert
                     style: const TextStyle(
                         fontFamily: 'a고딕15',
                         fontWeight: FontWeight.bold), // Bold text style
