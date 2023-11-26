@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
+import 'package:weteam/src/util/overlay_utils.dart';
 import 'package:weteam/src/widget/datepicker.dart';
 
 class AddSchedule extends StatefulWidget {
@@ -13,6 +14,8 @@ class AddSchedule extends StatefulWidget {
 class _AddScheduleState extends State<AddSchedule> {
   DateTime selectedDate = DateTime.now();
   DateTime focusedDate = DateTime.now();
+  final OverlayUtils _overlayUtils = OverlayUtils();
+  Color selectedColor = Colors.blue; // Default colo
 
   Future<void> _selectDate() async {
     await showDialog(
@@ -124,12 +127,27 @@ class _AddScheduleState extends State<AddSchedule> {
                                     ),
                                   ),
                                 ),
-                                Image.asset(ImagePath.colorbutton),
+                                _choiceColor(),
                               ],
                             ),
                           ),
-                          const Text('시작'),
-                          const Text('종료'),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              '시작',
+                              style: TextStyle(fontFamily: 'a고딕14'),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              '종료',
+                              style: TextStyle(fontFamily: 'a고딕14'),
+                            ),
+                          ),
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: Divider(
@@ -284,6 +302,121 @@ class _AddScheduleState extends State<AddSchedule> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _choiceColor() {
+    return GestureDetector(
+      onTap: () {
+        _overlayUtils.showOverlay(context, _selectColorOverlay());
+      },
+      child: Container(
+        width: 15.0,
+        height: 15.0,
+        decoration: BoxDecoration(
+          color: selectedColor,
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+
+  Widget _selectColorOverlay() {
+    final List<Color> colors = [
+      const Color(0xFFE2583E),
+      const Color(0xFFE23E6F),
+      const Color(0xFFDB00FF),
+      const Color(0xFF553EE2),
+      const Color(0xFF138AE0),
+      const Color(0xFF66BCFF),
+      const Color(0xFF19B96C),
+      const Color(0xFFB7E23E),
+      const Color(0xFFF7E431),
+      const Color(0xFFFFBF5F),
+      const Color(0xFFA27F55),
+      const Color(0xFF88554C),
+      const Color(0xFFD9D9D9),
+      const Color(0xFF587E91),
+    ];
+
+    int colorCount = colors.length;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white, // Container background color
+            borderRadius: BorderRadius.circular(15.0),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  '스케쥴 색상 설정',
+                  style: TextStyle(
+                      decoration: TextDecoration.none,
+                      fontSize: 18.0,
+                      fontFamily: 'a고딕15',
+                      color: Colors.black),
+                ),
+              ),
+              Wrap(
+                children: List.generate(colorCount, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = colors[index];
+                      });
+                      _overlayUtils.removeOverlay();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(
+                          5.0), // Margin around each color circle
+                      width: 36, // Circle diameter
+                      height: 36, // Circle diameter
+                      decoration: BoxDecoration(
+                        color: colors[index],
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              const SizedBox(
+                height: 100.0,
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      _overlayUtils.removeOverlay();
+                    },
+                    child: const Text(
+                      '취소',
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        color: Colors.grey,
+                        fontSize: 16.0,
+                        fontFamily: 'a고딕12',
+                      ),
+                    ),
+                  )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
