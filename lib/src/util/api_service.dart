@@ -85,10 +85,11 @@ class ApiService {
           "Authorization": "Bearer $jwt",
         },
       );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
       if (response.statusCode == 200) {
         // 응답 본문을 디코드합니다.
         Map<String, dynamic> responseJson = jsonDecode(response.body);
-
         // 응답에서 'result'와 'data' 필드를 확인합니다.
         if (responseJson['result'] == true && responseJson['data'] != null) {
           return responseJson['data'];

@@ -19,9 +19,9 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      uid: json['uid'] ?? "",
+      uid: json['id'] ?? "",
       username: json['username'] ?? "",
-      password: json['password'] ?? "",
+      password: "",
       nickname: json['nickname'] ?? "",
       verifyUsername: json['verifyusername'] ?? 1,
       verifyNickname: json['verifyNickname'] ?? 1,

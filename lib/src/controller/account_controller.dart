@@ -38,12 +38,14 @@ class AccountController extends GetxController {
       String jwt = await _apiService.login(uid, password);
 
       print('Received JWT: $jwt');
+
       currentUser.value = User(
-        uid: uid, // uid는 로그인 요청에서 사용됩니다.
-        username: 'temp-username', // 실제 username을 얻을 다른 방법을 고려해야 합니다.
-        password: '', // 비밀번호는 저장하지 않습니다.
+        uid: uid,
+        username: '',
+        password: '',
         token: jwt,
       );
+      await getCurrentUserInfo();
       Get.snackbar('Success', 'Login successful. JWT stored.');
     } catch (e) {
       Get.snackbar('Error', 'Login failed: $e');
@@ -88,6 +90,29 @@ class AccountController extends GetxController {
     } catch (e) {
       // 오류 처리
       Get.snackbar('Error', '닉네임 중복 확인 중 오류 발생: $e');
+    }
+  }
+
+  // 현재 사용자 정보 메소드
+  Future<void> getCurrentUserInfo() async {
+    isLoading.value = true;
+    try {
+      if (currentUser.value?.token != null) {
+        var response = await _apiService.getUserInfo(currentUser.value!.token!);
+        print('Response: $response');
+
+        currentUser.value = User.fromJson(response);
+        print('Current user nickname: ${currentUser.value?.nickname}');
+
+        Get.snackbar('Success', 'User information updated successfully.');
+      } else {
+        throw Exception('Token is not available.');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to update user information: $e');
+      print('error: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 }
