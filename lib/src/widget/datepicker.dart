@@ -30,10 +30,13 @@ class _DatePickerState extends State<DatePicker> {
         mainAxisSize: MainAxisSize.min,
         children: [
           buildDateDisplay(),
-          buildPickerRow(_selectedDate.year - 1, _selectedDate.month - 1),
-          buildPickerRow(_selectedDate.year, _selectedDate.month,
+          buildPickerRow(_selectedDate.year - 1, _selectedDate.month - 1,
+              _selectedDate.day - 1),
+          buildPickerRow(
+              _selectedDate.year, _selectedDate.month, _selectedDate.day,
               isBold: true, fontSize: 18.0),
-          buildPickerRow(_selectedDate.year + 1, _selectedDate.month + 1),
+          buildPickerRow(_selectedDate.year + 1, _selectedDate.month + 1,
+              _selectedDate.day + 1),
           buildActionButtons(),
         ],
       ),
@@ -48,7 +51,7 @@ class _DatePickerState extends State<DatePicker> {
         ),
       );
 
-  Widget buildPickerRow(int yearValue, int monthValue,
+  Widget buildPickerRow(int yearValue, int monthValue, int dayValue,
           {bool isBold = false, double fontSize = 14.0}) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -56,37 +59,64 @@ class _DatePickerState extends State<DatePicker> {
           buildPickerItem(yearValue,
               isYear: true, isBold: isBold, fontSize: fontSize),
           buildPickerItem(monthValue, isBold: isBold, fontSize: fontSize),
+          buildPickerItem(dayValue, isBold: isBold, fontSize: fontSize)
         ],
       );
 
   Widget buildPickerItem(int value,
-      {bool isYear = false, bool isBold = false, double fontSize = 14.0}) {
+      {bool isYear = false,
+      bool isMonth = false,
+      bool isBold = false,
+      double fontSize = 14.0}) {
     return InkWell(
-      onTap: () => updateSelectedDate(value, isYear: isYear),
+      onTap: () {
+        if (isSelectable(value, isYear, isMonth)) {
+          updateSelectedDate(value, isYear: isYear, isMonth: isMonth);
+        }
+      },
       child: Text(
         value.toString(),
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
           fontSize: fontSize,
-          color: isSelectable(value, isYear) ? Colors.black : Colors.grey,
+          color:
+              isSelectable(value, isYear, isMonth) ? Colors.black : Colors.grey,
         ),
       ),
     );
   }
 
-  bool isSelectable(int value, bool isYear) {
-    if (isYear) return value >= 1;
-    return value >= 1 && value <= 12;
+  bool isSelectable(int value, bool isYear, bool isMonth) {
+    if (isYear) {
+      return value >= DateTime.now().year - 100 &&
+          value <= DateTime.now().year + 100;
+    } else if (isMonth) {
+      return value >= 1 && value <= 12;
+    } else {
+      // 마지막 날짜를 확인하여 일(day) 선택 가능 여부를 반환합니다.
+      int lastDay = getLastDayOfMonth(_selectedDate.year, _selectedDate.month);
+      return value >= 1 && value <= lastDay;
+    }
   }
 
-  void updateSelectedDate(int value, {required bool isYear}) {
+  void updateSelectedDate(int value,
+      {bool isYear = false, bool isMonth = false}) {
     setState(() {
       if (isYear) {
-        _selectedDate = DateTime(value, _selectedDate.month);
+        _selectedDate = DateTime(value, _selectedDate.month, _selectedDate.day);
+      } else if (isMonth) {
+        _selectedDate = DateTime(_selectedDate.year, value, _selectedDate.day);
       } else {
-        _selectedDate = DateTime(_selectedDate.year, value);
+        _selectedDate =
+            DateTime(_selectedDate.year, _selectedDate.month, value);
       }
     });
+  }
+
+  int getLastDayOfMonth(int year, int month) {
+    DateTime beginningNextMonth =
+        (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
+    return beginningNextMonth.subtract(const Duration(days: 1)).day;
   }
 
   Widget buildActionButtons() => Padding(
