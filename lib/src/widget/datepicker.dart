@@ -61,10 +61,18 @@ class _DatePickerState extends State<DatePicker> {
 
   Widget buildPickerItem(int value,
       {bool isYear = false, bool isBold = false, double fontSize = 14.0}) {
+    String displayValue = isYear
+        ? value.toString()
+        : (value == 0
+            ? '12'
+            : value == 13
+                ? '1'
+                : value.toString());
+
     return InkWell(
       onTap: () => updateSelectedDate(value, isYear: isYear),
       child: Text(
-        value.toString(),
+        displayValue,
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
           fontSize: fontSize,
@@ -76,7 +84,7 @@ class _DatePickerState extends State<DatePicker> {
 
   bool isSelectable(int value, bool isYear) {
     if (isYear) return value >= 1;
-    return value >= 1 && value <= 12;
+    return (value >= 0 && value <= 12) || value == 13;
   }
 
   void updateSelectedDate(int value, {required bool isYear}) {
@@ -84,7 +92,15 @@ class _DatePickerState extends State<DatePicker> {
       if (isYear) {
         _selectedDate = DateTime(value, _selectedDate.month);
       } else {
-        _selectedDate = DateTime(_selectedDate.year, value);
+        if (_selectedDate.month == 12 && value == 1) {
+          // 12월에서 1월로 갈 때
+          _selectedDate = DateTime(_selectedDate.year + 1, value);
+        } else if (_selectedDate.month == 1 && value == 12) {
+          // 1월에서 12월로 갈 때
+          _selectedDate = DateTime(_selectedDate.year - 1, value);
+        } else {
+          _selectedDate = DateTime(_selectedDate.year, value);
+        }
       }
     });
   }
