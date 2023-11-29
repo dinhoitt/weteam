@@ -11,7 +11,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFFFFFF),
+      backgroundColor: const Color(0xffFFFFFF),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
               ),
               child: GestureDetector(
                   onTap: () {
-                    Get.to(() => LoginPage());
+                    Get.to(() => const LoginPage());
                   },
                   child: Image.asset(ImagePath.loginbutton)),
             ),
@@ -53,7 +53,7 @@ class Login extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => SignUP(), binding: LoginBinding());
+                  Get.to(() => const SignUP(), binding: LoginBinding());
                 },
                 child: Image.asset(ImagePath.loginsignup),
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/util/overlay_utils.dart';
-import 'package:weteam/src/widget/datepicker.dart';
+import 'package:weteam/src/widget/datepicker/datepicker_day.dart';
 
 class AddSchedule extends StatefulWidget {
   const AddSchedule({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _AddScheduleState extends State<AddSchedule> {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return DatePicker(
+        return DatePickerDay(
           onDateChanged: (selectedDate) {
             if (selectedDate != null) {
               setState(() {

@@ -3,7 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:weteam/src/data/image_date.dart';
 import 'package:weteam/src/model/schedule_overlay.dart';
 import 'package:weteam/src/widget/calendar.dart';
-import 'package:weteam/src/widget/datepicker.dart';
+import 'package:weteam/src/widget/datepicker/datepicker.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({Key? key}) : super(key: key);
