@@ -21,6 +21,18 @@ class _DatePickerDayState extends State<DatePickerDay> {
     _selectedDate = widget.initialDate;
   }
 
+  int _previousYear() => _selectedDate.year - 1; // 전년도
+  int _nextYear() => _selectedDate.year + 1; // 다음 년도
+  int _previousMonth() =>
+      _selectedDate.month == 1 ? 12 : _selectedDate.month - 1; // 전 달
+  int _nextMonth() =>
+      _selectedDate.month == 12 ? 1 : _selectedDate.month + 1; // 다음 달
+
+  // 주어진 달에 있는 날의 수를 가져오는 메서드
+  int _daysInMonth(int year, int month) {
+    return DateUtils.getDaysInMonth(year, month);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -30,23 +42,15 @@ class _DatePickerDayState extends State<DatePickerDay> {
         mainAxisSize: MainAxisSize.min,
         children: [
           buildDateDisplay(),
-          buildPickerRow(_selectedDate.year - 1, _selectedDate.month - 1),
+          buildPickerRow(_previousYear(), _previousMonth()),
           buildPickerRow(_selectedDate.year, _selectedDate.month,
               isBold: true, fontSize: 18.0),
-          buildPickerRow(_selectedDate.year + 1, _selectedDate.month + 1),
-          buildActionButtons(),
+          buildPickerRow(_nextYear(), _nextMonth()),
+          actionButtons(),
         ],
       ),
     );
   }
-
-  Widget buildDateDisplay() => Padding(
-        padding: const EdgeInsets.only(bottom: 10.0),
-        child: Text(
-          '${_selectedDate.year}년 ${_selectedDate.month}월',
-          style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-        ),
-      );
 
   Widget buildPickerRow(int yearValue, int monthValue,
           {bool isBold = false, double fontSize = 14.0}) =>
@@ -59,15 +63,18 @@ class _DatePickerDayState extends State<DatePickerDay> {
         ],
       );
 
+  Widget buildDateDisplay() => Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Text(
+          '${_selectedDate.year}년 ${_selectedDate.month}월',
+          style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+        ),
+      );
+
+  // 1에서 0을 갈 때 0을 12로, 12에서 1을 갈 때 13을 1로
   Widget buildPickerItem(int value,
       {bool isYear = false, bool isBold = false, double fontSize = 14.0}) {
-    String displayValue = isYear
-        ? value.toString()
-        : (value == 0
-            ? '12'
-            : value == 13
-                ? '1'
-                : value.toString());
+    String displayValue = isYear ? value.toString() : '${value.clamp(1, 12)}';
 
     return InkWell(
       onTap: () => updateSelectedDate(value, isYear: isYear),
@@ -83,8 +90,12 @@ class _DatePickerDayState extends State<DatePickerDay> {
   }
 
   bool isSelectable(int value, bool isYear) {
-    if (isYear) return value >= 1;
-    return (value >= 0 && value <= 12) || value == 13;
+    if (isYear) {
+      return value >= DateTime.now().year - 100 &&
+          value <= DateTime.now().year + 100;
+    } else {
+      return value >= 1 && value <= 12;
+    }
   }
 
   void updateSelectedDate(int value, {required bool isYear}) {
@@ -92,20 +103,25 @@ class _DatePickerDayState extends State<DatePickerDay> {
       if (isYear) {
         _selectedDate = DateTime(value, _selectedDate.month);
       } else {
+        int newYear = _selectedDate.year;
+        int newMonth = value;
+
         if (_selectedDate.month == 12 && value == 1) {
           // 12월에서 1월로 갈 때
-          _selectedDate = DateTime(_selectedDate.year + 1, value);
+          newYear++;
         } else if (_selectedDate.month == 1 && value == 12) {
           // 1월에서 12월로 갈 때
-          _selectedDate = DateTime(_selectedDate.year - 1, value);
+          newYear--;
         } else {
-          _selectedDate = DateTime(_selectedDate.year, value);
+          newMonth = value.clamp(1, 12);
         }
+
+        _selectedDate = DateTime(newYear, newMonth);
       }
     });
   }
 
-  Widget buildActionButtons() => Padding(
+  Widget actionButtons() => Padding(
         padding: const EdgeInsets.only(top: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
