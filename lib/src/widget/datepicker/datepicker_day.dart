@@ -28,6 +28,20 @@ class _DatePickerDayState extends State<DatePickerDay> {
   int _nextMonth() =>
       _selectedDate.month == 12 ? 1 : _selectedDate.month + 1; // 다음 달
 
+  int _previousDay() {
+    DateTime previous =
+        DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
+            .subtract(const Duration(days: 1));
+    return previous.day;
+  } // 전 날
+
+  int _nextDay() {
+    DateTime next =
+        DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
+            .add(const Duration(days: 1));
+    return next.day;
+  } // 다음 날
+
   // 주어진 달에 있는 날의 수를 가져오는 메서드
   int _daysInMonth(int year, int month) {
     return DateUtils.getDaysInMonth(year, month);
@@ -42,82 +56,108 @@ class _DatePickerDayState extends State<DatePickerDay> {
         mainAxisSize: MainAxisSize.min,
         children: [
           buildDateDisplay(),
-          buildPickerRow(_previousYear(), _previousMonth()),
-          buildPickerRow(_selectedDate.year, _selectedDate.month,
+          buildPickerRow(_previousYear(), _previousMonth(), _previousDay()),
+          buildPickerRow(
+              _selectedDate.year, _selectedDate.month, _selectedDate.day,
               isBold: true, fontSize: 18.0),
-          buildPickerRow(_nextYear(), _nextMonth()),
+          buildPickerRow(_nextYear(), _nextMonth(), _nextDay()),
           actionButtons(),
         ],
       ),
     );
   }
 
-  Widget buildPickerRow(int yearValue, int monthValue,
+  Widget buildPickerRow(int yearValue, int monthValue, int dayValue,
           {bool isBold = false, double fontSize = 14.0}) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           buildPickerItem(yearValue,
               isYear: true, isBold: isBold, fontSize: fontSize),
-          buildPickerItem(monthValue, isBold: isBold, fontSize: fontSize),
+          buildPickerItem(monthValue,
+              isMonth: true, isBold: isBold, fontSize: fontSize),
+          buildPickerItem(dayValue, isBold: isBold, fontSize: fontSize),
         ],
       );
 
   Widget buildDateDisplay() => Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: Text(
-          '${_selectedDate.year}년 ${_selectedDate.month}월',
+          '${_selectedDate.year}년 ${_selectedDate.month}월 ${_selectedDate.day}일',
           style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
         ),
       );
 
-  // 1에서 0을 갈 때 0을 12로, 12에서 1을 갈 때 13을 1로
+  // month : 1에서 0을 갈 때 0을 12로, 12에서 1을 갈 때 13을 1로
   Widget buildPickerItem(int value,
-      {bool isYear = false, bool isBold = false, double fontSize = 14.0}) {
-    String displayValue = isYear ? value.toString() : '${value.clamp(1, 12)}';
+      {bool isYear = false,
+      bool isMonth = false,
+      bool isDay = false,
+      bool isBold = false,
+      double fontSize = 14.0}) {
+    String displayValue = isYear
+        ? value.toString()
+        : isMonth
+            ? '${value.clamp(1, 12)}'
+            : value.toString();
+
+    bool isSelected = (isYear && value == _selectedDate.year) ||
+        (isMonth && value == _selectedDate.month) ||
+        (!isYear && !isMonth && value == _selectedDate.day);
 
     return InkWell(
-      onTap: () => updateSelectedDate(value, isYear: isYear),
+      onTap: () => updateSelectedDate(value, isYear: isYear, isMonth: isMonth),
       child: Text(
         displayValue,
         style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           fontSize: fontSize,
-          color: isSelectable(value, isYear) ? Colors.black : Colors.grey,
+          color: isSelected ? Colors.black : Colors.grey,
         ),
       ),
     );
   }
 
-  bool isSelectable(int value, bool isYear) {
+  bool isSelectable(int value, {bool isYear = false, bool isMonth = false}) {
     if (isYear) {
       return value >= DateTime.now().year - 100 &&
           value <= DateTime.now().year + 100;
-    } else {
+    } else if (isMonth) {
       return value >= 1 && value <= 12;
+    } else {
+      return value >= 1 &&
+          value <= _daysInMonth(_selectedDate.year, _selectedDate.month);
     }
   }
 
-  void updateSelectedDate(int value, {required bool isYear}) {
+  void updateSelectedDate(int value,
+      {required bool isYear, bool isMonth = false}) {
     setState(() {
       if (isYear) {
-        _selectedDate = DateTime(value, _selectedDate.month);
-      } else {
+        _selectedDate = DateTime(value, _selectedDate.month, _selectedDate.day);
+      } else if (isMonth) {
         int newYear = _selectedDate.year;
-        int newMonth = value;
-
+        // int newMonth = value;
         if (_selectedDate.month == 12 && value == 1) {
           // 12월에서 1월로 갈 때
           newYear++;
         } else if (_selectedDate.month == 1 && value == 12) {
           // 1월에서 12월로 갈 때
           newYear--;
-        } else {
-          newMonth = value.clamp(1, 12);
         }
 
-        _selectedDate = DateTime(newYear, newMonth);
+        // 새로운 월에 대한 날짜의 유효성 판단, 조정
+        int lasDayOfMonth = _daysInMonth(newYear, value);
+        int newDay = _selectedDate.day > lasDayOfMonth
+            ? lasDayOfMonth
+            : _selectedDate.day;
+
+        _selectedDate = DateTime(newYear, value, _selectedDate.day);
+      } else {
+        _selectedDate =
+            DateTime(_selectedDate.year, _selectedDate.month, value);
       }
+      widget.onDateChanged(_selectedDate);
     });
   }
 

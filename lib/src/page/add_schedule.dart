@@ -76,7 +76,7 @@ class _AddScheduleState extends State<AddSchedule> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              '${selectedDate.year}.${selectedDate.month}',
+                              '${selectedDate.year}.${selectedDate.month}.${selectedDate.day}',
                               style: const TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
@@ -133,9 +133,14 @@ class _AddScheduleState extends State<AddSchedule> {
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
-                              '시작',
-                              style: TextStyle(fontFamily: 'a고딕14'),
+                            child: Row(
+                              children: [
+                                Text(
+                                  '시작',
+                                  style: TextStyle(fontFamily: 'a고딕14'),
+                                ),
+                                // 시간 선택
+                              ],
                             ),
                           ),
                           const SizedBox(
@@ -143,9 +148,14 @@ class _AddScheduleState extends State<AddSchedule> {
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
-                              '종료',
-                              style: TextStyle(fontFamily: 'a고딕14'),
+                            child: Row(
+                              children: [
+                                Text(
+                                  '종료',
+                                  style: TextStyle(fontFamily: 'a고딕14'),
+                                ),
+                                // 시간 선택
+                              ],
                             ),
                           ),
                           const Padding(
