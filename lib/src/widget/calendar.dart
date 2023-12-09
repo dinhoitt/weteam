@@ -68,7 +68,10 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
         holidayDecoration: BoxDecoration(), // 공휴일 추가 테두리 X
       ),
       holidayPredicate: (day) {
-        return day.month == 5 && day.day == 5 || // 5월 5일 : 어린이날
+        return day.month == 1 && day.day == 1 || // 1월 1일 : 신정
+            day.month == 5 && day.day == 5 || // 5월 5일 : 어린이날
+            day.month == 6 && day.day == 6 || // 6월 6일 : 현충일
+            day.month == 10 && day.day == 9 || // 10월 9일 : 한글날
             day.month == 12 && day.day == 25; // 12월 25일 : 크리스마스
       },
     );
