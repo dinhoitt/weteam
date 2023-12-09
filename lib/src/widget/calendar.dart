@@ -59,15 +59,17 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
         weekendStyle: TextStyle(color: Colors.red),
       ),
       calendarStyle: const CalendarStyle(
-        defaultTextStyle: TextStyle(color: Colors.black),
+        defaultTextStyle: TextStyle(color: Colors.black), // 일반 텍스트 스타일
         holidayTextStyle: TextStyle(color: Colors.red), // 공휴일 텍스트 스타일
         todayDecoration: BoxDecoration(
           color: Color(0xFF666666),
           shape: BoxShape.circle,
         ),
+        holidayDecoration: BoxDecoration(), // 공휴일 추가 테두리 X
       ),
       holidayPredicate: (day) {
-        return controller.isHoliday(day);
+        return day.month == 5 && day.day == 5 ||
+            day.month == 12 && day.day == 25;
       },
     );
   }
