@@ -22,7 +22,6 @@ class CalendarController extends GetxController {
     var events = getEventsForDay(date);
 
     List<Widget> markers = [];
-    // 최대 3개 까지 나타냄
     for (var i = 0; i < events.length && i < 3; i++) {
       Color eventColor = getColorForEventType(events[i].title);
       markers.add(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:weteam/src/binding/init_binding.dart';
-import 'package:weteam/src/controller/account_controller.dart';
-import 'package:weteam/src/view/login.dart';
+import 'package:weteam/binding/init_binding.dart';
+import 'package:weteam/controller/account_controller.dart';
+import 'package:weteam/view/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

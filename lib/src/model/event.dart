@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+
 class Event {
   final String title;
+  final Color color;
 
-  Event(this.title);
+  Event({required this.title, required this.color});
 
   @override
   String toString() => title;
