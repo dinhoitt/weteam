@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:weteam/src/controller/schedule_controller.dart';
+import 'package:weteam/controller/schedule_controller.dart';
 import 'package:weteam/util/calendar_utils.dart';
 
 class SimpleCalendar extends StatefulWidget {
