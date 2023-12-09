@@ -41,8 +41,8 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
             controller.buildDefaultDayWidget(day),
       ),
       locale: 'ko_KR', // 한국어
-      daysOfWeekHeight: 50.0, // 요일 높이 조정
-      rowHeight: 100.0, // 상하 간격
+      daysOfWeekHeight: 40.0, // 요일 높이 조정
+      rowHeight: 85.0, // 상하 간격
       firstDay: DateTime.utc(2000, 1, 1),
       lastDay: DateTime.utc(2100, 12, 31),
       focusedDay: widget.focusedDay,
@@ -54,11 +54,16 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
       onDaySelected: ((selectedDay, newFocusedDay) {
         widget.onDaySelected(selectedDay, newFocusedDay);
       }),
-      headerVisible: false,
+      headerVisible: false, // 헤더 안보임
       daysOfWeekStyle: const DaysOfWeekStyle(
         weekendStyle: TextStyle(color: Colors.red),
       ),
+
+      // Calendar 내부 design
       calendarStyle: const CalendarStyle(
+        cellMargin: EdgeInsets.all(0.0),
+        cellPadding: EdgeInsets.all(0.0),
+
         defaultTextStyle: TextStyle(color: Colors.black), // 일반 텍스트 스타일
         holidayTextStyle: TextStyle(color: Colors.red), // 공휴일 텍스트 스타일
         todayDecoration: BoxDecoration(
@@ -66,7 +71,11 @@ class _SimpleCalendarState extends State<SimpleCalendar> {
           shape: BoxShape.circle,
         ),
         holidayDecoration: BoxDecoration(), // 공휴일 추가 테두리 X
+        disabledTextStyle: TextStyle(color: Colors.grey),
+        disabledDecoration: BoxDecoration(shape: BoxShape.circle),
       ),
+
+      // 공휴일 설정
       holidayPredicate: (day) {
         return day.month == 1 && day.day == 1 || // 1월 1일 : 신정
             day.month == 5 && day.day == 5 || // 5월 5일 : 어린이날
