@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weteam/gen/fonts.gen.dart';
 import 'package:weteam/model/event.dart';
 
 class CalendarController extends GetxController {
@@ -60,8 +59,7 @@ class CalendarController extends GetxController {
       return Center(
         child: Text(
           day.day.toString(),
-          style: const TextStyle(
-              color: Colors.blue, fontFamily: FontFamily.aGothic14),
+          style: const TextStyle(color: Colors.blue, fontFamily: 'a고딕14'),
         ),
       );
     } else if (day.weekday == DateTime.sunday) {
