@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:weteam/model/user.dart';
-import 'package:weteam/util/api_service.dart';
+import 'package:weteam/dio/api_service.dart';
 
 class AccountController extends GetxController {
   final isLoading = false.obs;
