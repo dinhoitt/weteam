@@ -29,6 +29,7 @@ dependencies:
   gap: ^3.0.1
   very_good_analysis: ^5.1.0
   dio: ^5.4.0
+  flutter_screenutil: ^5.9.0
   
 
 
