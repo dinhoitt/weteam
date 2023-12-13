@@ -8,8 +8,8 @@ class CompletedTP extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+          title: const Padding(
+            padding: EdgeInsets.only(top: 15.0),
             child: Text(
               '종료된 팀플',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -18,12 +18,12 @@ class CompletedTP extends StatelessWidget {
           centerTitle: true,
         ),
         body: _body(),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: const Color(0xFFF5F5F5),
       ),
     );
   }
 
   Widget _body() {
-    return Column();
+    return const Column();
   }
 }

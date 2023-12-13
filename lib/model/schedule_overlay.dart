@@ -18,7 +18,7 @@ void showscheduleOverlay(BuildContext context) {
               overlayUtils.removeOverlay();
             },
             child: Container(
-              color: Colors.black.withOpacity(0.7), // Semi-transparent black
+              color: Colors.black.withOpacity(0.7),
             ),
           ),
         ),
