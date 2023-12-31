@@ -30,6 +30,9 @@ dependencies:
   very_good_analysis: ^5.1.0
   dio: ^5.4.0
   flutter_screenutil: ^5.9.0
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  google_sign_in: ^6.2.1
   
 
 
